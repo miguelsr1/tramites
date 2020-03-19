@@ -1,0 +1,93 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core"
+    template="#{pageContext.servletContext.contextPath}/resources/template/plantilla.xhtml">
+
+    <ui:define name="titulo">
+        <div class="header-content">
+            <h1>Registro de trámites en línea</h1>
+            <h2 style="line-height: 1.5">Registre su información</h2>
+        </div>
+    </ui:define>
+
+    <ui:define name="contenido">
+        <h:form prependId="false">
+            <div id="pricing">
+                <div class="ui-g ui-fluid">
+                    <p:panelGrid id="pngPersona" columns="2" columnClasses="ui-g-12 ui-md-6, ui-g-12 ui-md-6"
+                                 style="margin: 0 auto; width: 70%;"
+                                 styleClass="form-group ui-panelgrid-blank" layout="grid">
+                        <p:outputLabel value="¿Quién esta solicitando el trámite?"/>
+
+                        <p:selectOneRadio unselectable="false" value="#{registroView.tipoPersona}">
+                            <f:selectItem itemLabel="Estudiante" itemValue="E" />
+                            <f:selectItem itemLabel="Otra persona" itemValue="O" />
+                            <p:ajax update="outPersona" event="change"/>
+                        </p:selectOneRadio>
+                    </p:panelGrid>
+
+                    <p:outputPanel style="width: 100%" id="outPersona">
+                        <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-3 col3_left, ui-g-12 ui-md-9 col9_left"
+                                     style="margin: 0 auto; width: 70%;"
+                                     styleClass="form-group ui-panelgrid-blank" layout="grid" rendered="#{registroView.tipoPersona eq 'E'}">
+                            <p:outputLabel value="NIE "/>
+                            <p:inputMask mask="99999999-" value="#{registroView.persona.dui}" size="12"/>
+                        </p:panelGrid>
+
+                        <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-3 col3_left, ui-g-12 ui-md-9 col9_left"
+                                     style="margin: 0 auto; width: 70%;"
+                                     styleClass="form-group ui-panelgrid-blank" layout="grid" rendered="#{(registroView.tipoPersona eq 'E') or (registroView.tipoPersona eq 'O')}">
+                            <p:outputLabel value="DUI "/>
+                            <p:inputMask mask="99999999-9" value="#{registroView.persona.dui}" size="12"/>
+                            <p:outputLabel value="Genero "/>
+                            <p:selectOneMenu value="#{registroView.persona.genero}">
+                                <f:selectItem itemLabel="Seleccione un valor"/>
+                                <f:selectItem itemLabel="Masculino" itemValue="M"/>
+                                <f:selectItem itemLabel="Femenino" itemValue="F"/>
+                                <f:selectItem itemLabel="Indefinido" itemValue="I"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Nombres "/>
+                            <p:inputText value="#{registroView.persona.nombres}"/>
+                            <p:outputLabel value="Apellidos "/>
+                            <p:inputText value="#{registroView.persona.apellidos}"/>
+                            <p:outputLabel value="Correo electrónico "/>
+                            <p:inputText value="#{registroView.persona.correoElectronico}"/>
+                            <p:outputLabel value="Teléfono "/>
+                            <p:inputMask mask="9999-9999" value="#{registroView.persona.telefono}"/>
+                        </p:panelGrid>
+                        <br/>
+                        <p:commandButton value="Siguiente" style="width: 200px; margin: 0 auto;" rendered="#{(registroView.tipoPersona eq 'E') or (registroView.tipoPersona eq 'O')}"/>
+                    </p:outputPanel>
+
+
+                    <p:outputPanel style="width: 100%" id="outTipoTramite">
+                        <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-4 col4_left, ui-g-12 ui-md-8 col8_left"
+                                     style="margin: 0 auto; width: 70%;"
+                                     styleClass="form-group ui-panelgrid-blank" layout="grid">
+                            <p:outputLabel value="Tipo de trámite que solicita"/>
+                            <p:selectOneMenu>
+                                <f:selectItem itemLabel="Seleccione un valor" noSelectionOption="true"/>
+                                <f:selectItems value="#{registroView.lstTipoTramite}" var="tipo" itemValue="#{tipo.idTipoTramite}" itemLabel="#{tipo.descripcionTraminte}"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Código infraestructura"/>
+                            <p:autoComplete value="#{registroView.entidadEducativaDto}" completeMethod="#{registroView.completeEntidadEducativa}">
+                                <p:ajax event="itemSelect" update="txtDepartamento txtMunicipio txtModalidad"/>
+                            </p:autoComplete>
+                            <p:outputLabel value="Departamento"/>
+                            <p:inputText id="txtDepartamento" value="#{registroView.entidadEducativaDto.nombreDepartamento}"/>
+                            <p:outputLabel value="Municipio"/>
+                            <p:inputText id="txtMunicipio" value="#{registroView.entidadEducativaDto.nombreMunicipio}"/>
+                            <p:outputLabel value="Modalidad Educativa"/>
+                            <p:inputText id="txtModalidad" value="#{registroView.entidadEducativaDto.inicialesModalidad}"/>
+                        </p:panelGrid>
+                    </p:outputPanel>
+                </div>
+            </div>
+        </h:form>
+
+        <h:outputStylesheet name="main.css" library="css" />
+    </ui:define>
+</ui:composition>

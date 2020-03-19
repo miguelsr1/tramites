@@ -1,0 +1,60 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core"
+    template="#{pageContext.servletContext.contextPath}/resources/template/plantilla.xhtml">
+
+    <ui:define name="titulo">
+        <div class="header-content">
+            <h1>Registro de trámites en línea</h1>
+            <h2 style="line-height: 1.5">¿Qué tipo de trámite desea realizar?</h2>
+        </div>
+    </ui:define>
+
+    <ui:define name="contenido">
+        <div id="pricing">
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-6">
+                    <div class="price-type">
+                        <h3>
+                            <h:panelGrid columns="1" style="width: 100%">
+                                <i class="fa fa-history" aria-hidden="true" style="font-size: 52px"></i>
+                                <p:outputLabel value="Registro Historico" style="font-size: 18px;"/>
+                            </h:panelGrid>
+                        </h3>
+                        <ul>
+                            <li>Responsive</li>
+                            <li>Push Messages</li>
+                        </ul>
+                        <span class="currency">$</span>
+                        <span class="price">5</span>
+                        <span class="term">/mo</span>
+
+                        <p:button outcome="/app/comun/registro" value="Seleccionar" icon="fa fa-hand-o-right" iconPos="rigth" styleClass="blue-btn raised-btn" />
+                    </div>
+                </div>
+                <div class="ui-g-12 ui-md-6">
+                    <div class="price-type">
+                        <h3>
+                            <h:panelGrid columns="1" style="width: 100%">
+                                <i class="fa fa-address-card-o" aria-hidden="true" style="font-size: 52px"></i>
+                                <p:outputLabel value="Acreditación institucional" style="font-size: 18px;"/>
+                            </h:panelGrid>
+                        </h3>
+                        <ul>
+                            <li>Responsive</li>
+                            <li>Push Messages</li>
+                            <li>7/24 Support</li>
+                            <li>Free Shipping</li>
+                        </ul>
+                        <span class="currency">$</span>
+                        <span class="price">10</span>
+                        <span class="term">/mo</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
