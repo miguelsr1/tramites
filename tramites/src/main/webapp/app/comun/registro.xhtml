@@ -8,7 +8,6 @@
 
     <ui:define name="titulo">
         <div class="header-content">
-            <h1>Registro de trámites en línea</h1>
             <h2 style="line-height: 1.5">Registre su información</h2>
         </div>
     </ui:define>
@@ -72,27 +71,8 @@
                                 <f:selectItem itemLabel="Seleccione un valor" noSelectionOption="true"/>
                                 <f:selectItems value="#{registroView.lstTipoTramite}" var="tipo" itemValue="#{tipo.idTipoTramite}" itemLabel="#{tipo.descripcionTraminte}"/>
                             </p:selectOneMenu>
-                            <p:outputLabel value="Código infraestructura"/>
-                            <p:autoComplete value="#{registroView.entidadEducativaDto}" completeMethod="#{registroView.completeEntidadEducativa}">
-                                <p:ajax event="itemSelect" update="txtDepartamento txtMunicipio txtModalidad"/>
-                            </p:autoComplete>
-                            <p:outputLabel value="Departamento"/>
-                            <p:inputText id="txtDepartamento" value="#{registroView.entidadEducativaDto.nombreDepartamento}" readonly="true"/>
-                            <p:outputLabel value="Municipio"/>
-                            <p:inputText id="txtMunicipio" value="#{registroView.entidadEducativaDto.nombreMunicipio}" readonly="true"/>
-                            <p:outputLabel value="Modalidad Educativa"/>
-                            <p:inputText id="txtModalidad" value="#{registroView.entidadEducativaDto.inicialesModalidad}" readonly="true"/>
-                            <p:outputLabel value="Año"/>
-                            <p:inputMask id="txtAnho" value="#{registroView.anho}" mask="9999" onchange="updateGrado();"/>
-                            <p:outputLabel value="Grado"/>
-                            <p:selectOneMenu id="cboGrado" value="">
-                                <f:selectItem itemLabel="Seleccione un valor" noSelectionOption="true"/>
-                                <f:selectItems value="#{registroView.lstGrados}" var="grado" itemValue="#{grado.grado}" itemLabel="#{grado.grado}"/>
-                            </p:selectOneMenu>
                         </p:panelGrid>
                     </p:outputPanel>
-                    
-                    <p:remoteCommand name="updateGrado" update="cboGrado"  />
                 </div>
             </div>
         </h:form>

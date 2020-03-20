@@ -22,6 +22,7 @@
     <jta-data-source>java:/AcreditacionDS</jta-data-source>
     <mapping-file>META-INF/consultas_acreditacion.xml</mapping-file>
     <class>sv.gob.mined.tramites.model.dto.acreditacion.GradoDto</class>
+    <class>sv.gob.mined.tramites.model.dto.acreditacion.OpcionDto</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>

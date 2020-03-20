@@ -1,0 +1,79 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core"
+    template="#{pageContext.servletContext.contextPath}/resources/template/plantilla.xhtml">
+
+    <ui:define name="titulo">
+        <div class="header-content">
+            <h2 style="line-height: 1.5">Solicitud de certificación de notas, registro y reposición de título</h2>
+        </div>
+    </ui:define>
+
+    <ui:define name="contenido">
+        <h:form prependId="false">
+            <div id="pricing">
+                <div class="ui-g ui-fluid">
+                    <p:outputPanel style="width: 100%" id="outTipoTramite">
+                        <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-4 col4_left, ui-g-12 ui-md-8 col8_left"
+                                     style="margin: 0 auto; width: 70%;"
+                                     styleClass="form-group ui-panelgrid-blank" layout="grid">
+                            <p:outputLabel value="Código infraestructura"/>
+                            <p:autoComplete value="#{solicitud01View.entidadEducativaDto}" completeMethod="#{solicitud01View.completeEntidadEducativa}">
+                                <p:ajax event="itemSelect" update="txtDepartamento txtMunicipio txtModalidad"/>
+                            </p:autoComplete>
+                            <p:outputLabel value="Departamento"/>
+                            <p:inputText id="txtDepartamento" value="#{solicitud01View.entidadEducativaDto.nombreDepartamento}" readonly="true"/>
+                            <p:outputLabel value="Municipio"/>
+                            <p:inputText id="txtMunicipio" value="#{solicitud01View.entidadEducativaDto.nombreMunicipio}" readonly="true"/>
+                            <p:outputLabel value="Modalidad Educativa"/>
+                            <p:inputText id="txtModalidad" value="#{solicitud01View.entidadEducativaDto.inicialesModalidad}" readonly="true"/>
+                            <p:outputLabel value="Año"/>
+                            <p:inputMask id="txtAnho" value="#{solicitud01View.anho}" mask="9999" onchange="updateGrado();"/>
+                            <p:outputLabel value="Grado"/>
+                            <p:selectOneMenu id="cboGrado" value="#{solicitud01View.grado}">
+                                <f:selectItem itemLabel="Seleccione un valor" noSelectionOption="true"/>
+                                <f:selectItems value="#{solicitud01View.lstGrados}" var="grado" itemValue="#{grado.codigoGrado}" itemLabel="#{grado.grado}"/>
+                                <p:ajax update="cboOpcion"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Opción"/>
+                            <p:selectOneMenu id="cboOpcion" value="#{solicitud01View.opcion}">
+                                <f:selectItem itemLabel="Seleccione un valor" noSelectionOption="true"/>
+                                <f:selectItems value="#{solicitud01View.lstOpcion}" var="opcion" itemValue="#{opcion.codigoOpcion}" itemLabel="#{opcion.opcionBach}"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Tipo de trámite"/>
+                            <p:selectManyCheckbox layout="responsive" columns="1" value="#{solicitud01View.tramites}">
+                                <f:selectItem itemLabel="Certificación de notas" itemValue="0"/>
+                                <f:selectItem itemLabel="Registro de título" itemValue="1"/>
+                                <f:selectItem itemLabel="Reposición de título" itemValue="2"/>
+                            </p:selectManyCheckbox> 
+                            <p:outputLabel value="Modalidad de atención"/>
+                            <p:selectOneRadio layout="responsive" columns="1" value="#{solicitud01View.modalidad}">
+                                <f:selectItem itemLabel="Regular" itemValue="0"/>
+                                <f:selectItem itemLabel="Modalidades Flexibles" itemValue="1"/>
+                            </p:selectOneRadio> 
+                            <p:outputLabel value="Periodo en que se graduó"/>
+                            <p:selectOneRadio layout="responsive" columns="1" value="#{solicitud01View.periodo}">
+                                <f:selectItem itemLabel="Ordinario" itemValue="0"/>
+                                <f:selectItem itemLabel="Extraordinario o recuperación" itemValue="1"/>
+                            </p:selectOneRadio> 
+                            <p:outputLabel value="Jornada de estudio"/>
+                            <p:selectOneRadio layout="responsive" columns="1" value="#{solicitud01View.jornada}">
+                                <f:selectItem itemLabel="Diurno" itemValue="0"/>
+                                <f:selectItem itemLabel="Nocturno" itemValue="1"/>
+                            </p:selectOneRadio> 
+                        </p:panelGrid>
+                        
+                        <p:commandButton value="Guardar" style="width: 200px; margin: 0 auto;" action=""/>
+                    </p:outputPanel>
+
+                    <p:remoteCommand name="updateGrado" update="cboGrado"  />
+                </div>
+            </div>
+        </h:form>
+
+        <h:outputStylesheet name="main.css" library="css" />
+    </ui:define>
+</ui:composition>

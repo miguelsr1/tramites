@@ -4,16 +4,12 @@
  */
 package sv.gob.mined.tramites.view.converter;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import sv.gob.mined.tramites.model.dto.paquete.EntidadEducativaDto;
-import sv.gob.mined.tramites.servicio.CatalogosServicio;
-import sv.gob.mined.tramites.view.RegistroView;
+import sv.gob.mined.tramites.view.acreditacion.Solicitud01View;
 
 /**
  *
@@ -29,8 +25,8 @@ public class EntidadEducativaConverter implements Converter {
             return new EntidadEducativaDto();
         }
 
-        RegistroView controller = (RegistroView) facesContext.getApplication().getELResolver().
-                getValue(facesContext.getELContext(), null, "registroView");
+        Solicitud01View controller = (Solicitud01View) facesContext.getApplication().getELResolver().
+                getValue(facesContext.getELContext(), null, "solicitud01View");
 
         return controller.find(value);
     }

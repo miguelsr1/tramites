@@ -16,6 +16,7 @@ import sv.gob.mined.tramites.facade.acreditacion.AcreditacionFacade;
 import sv.gob.mined.tramites.facade.paquete.EntidadEducativaFacade;
 import sv.gob.mined.tramites.model.TipoTramite;
 import sv.gob.mined.tramites.model.dto.acreditacion.GradoDto;
+import sv.gob.mined.tramites.model.dto.acreditacion.OpcionDto;
 import sv.gob.mined.tramites.model.dto.paquete.EntidadEducativaDto;
 
 /**
@@ -52,5 +53,9 @@ public class CatalogosServicio implements Serializable {
     
     public List<GradoDto> getLstGradosByCodEntAndAnho(String codigoEntidad, Integer anho){
         return acreditacionFacade.getGradosByCodEntAndAnho(codigoEntidad, anho);
+    }
+    
+    public List<OpcionDto> getLstOpcion(String codigoEntidad, Integer anho, String grado){
+        return acreditacionFacade.getOpcion(codigoEntidad, anho, grado);
     }
 }

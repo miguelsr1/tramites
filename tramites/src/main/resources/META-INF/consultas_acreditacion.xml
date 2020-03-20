@@ -36,4 +36,31 @@
             ]]>
         </query>
     </named-native-query>
+    
+    <named-native-query name="Acreditacion.Opcion" 
+                        result-class="sv.gob.mined.tramites.model.dto.acreditacion.OpcionDto">
+        <query>
+            <![CDATA[
+            select
+                rownum                  as idRow,
+                opc.codigo_espec_bach   as codigoEspecBach,
+                opc.codigo_mod_bach     as codigoModBach,
+                opc.codigo_opcion_bach  as codigoOpcionBach,
+                opc.opcion_bach         as opcionBach
+            from servicio_educativo ser
+                inner join opcion_bach opc on ser.codigo_espec_bach = opc.codigo_espec_bach
+                                            and ser.codigo_mod_bach = opc.codigo_mod_bach
+                                            and ser.codigo_opcion_bach = opc.codigo_opcion_bach
+            where id_Servicio_edu in (select id_servicio_edu 
+                                        from servicio_acreditado 
+                                        where id_serv_acreditado in (select id_serv_acreditado 
+                                                                        from seccion_servicio 
+                                                                        where id_seccion in (select id_seccion from seccion where id_anio_esc_entidad in (select id_anio_esc_entidad
+                                                                                                                                                            from anio_escolar_entidad an
+                                                                                                                                                                inner join entidad_educativa en on an.id_entidad = en.id_entidad
+                                                                                                                                                            where en.codigo_entidad = ? and anio = ?))))
+                and ser.codigo_grado = ?3
+            ]]>
+        </query>
+    </named-native-query>
 </entity-mappings>

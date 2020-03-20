@@ -19,7 +19,10 @@
         <div class="landing-wrapper">
             <div id="header">
                 <div class="header-top">
-                    <h:graphicImage name="images/mined-logo.svg" style="height:110px; margin-right:20px;cool"/>
+                    <h:panelGrid columns="2" style="width: 100%" columnClasses="col4,col8_left">
+                        <h:graphicImage name="images/mined-logo.svg" style="height:110px; margin-right:20px;cool"/>
+                        <h1>Registro de trámites en línea</h1>
+                    </h:panelGrid>
 
                     <ui:insert name="titulo"/>
                 </div>
@@ -30,6 +33,7 @@
 
         </div>
 
+        <h:outputStylesheet name="main.css" library="css" />
         <h:outputStylesheet name="css/animate.css" library="paradise-layout" />
         <h:outputStylesheet name="css/components.css" library="paradise-layout" />
         <h:outputStylesheet name="css/layout-#{guestPreferences.layout}.css" library="paradise-layout" />
