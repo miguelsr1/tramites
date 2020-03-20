@@ -25,6 +25,11 @@
         <component-class>org.primefaces.paradise.component.ParadiseMenu</component-class>
     </component>
     
+    <converter>
+        <converter-for-class>sv.gob.mined.tramites.model.dto.paquete.EntidadEducativaDto</converter-for-class>
+        <converter-class>sv.gob.mined.tramites.view.converter.EntidadEducativaConverter</converter-class>
+    </converter>
+    
     <render-kit>
         <renderer>
             <component-family>org.primefaces.component</component-family>

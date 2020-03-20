@@ -12,8 +12,10 @@ import javax.ejb.EJB;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import sv.gob.mined.tramites.facade.CatalogosFacade;
+import sv.gob.mined.tramites.facade.acreditacion.AcreditacionFacade;
 import sv.gob.mined.tramites.facade.paquete.EntidadEducativaFacade;
 import sv.gob.mined.tramites.model.TipoTramite;
+import sv.gob.mined.tramites.model.dto.acreditacion.GradoDto;
 import sv.gob.mined.tramites.model.dto.paquete.EntidadEducativaDto;
 
 /**
@@ -31,6 +33,8 @@ public class CatalogosServicio implements Serializable {
     public CatalogosFacade catalogosFacade;
     @EJB
     public EntidadEducativaFacade entidadEducativaFacade;
+    @EJB
+    public AcreditacionFacade acreditacionFacade;
 
     @PostConstruct
     public void init() {
@@ -44,5 +48,9 @@ public class CatalogosServicio implements Serializable {
 
     public List<EntidadEducativaDto> getLstEntidadEducativa() {
         return lstEntidadesEducativa;
+    }
+    
+    public List<GradoDto> getLstGradosByCodEntAndAnho(String codigoEntidad, Integer anho){
+        return acreditacionFacade.getGradosByCodEntAndAnho(codigoEntidad, anho);
     }
 }

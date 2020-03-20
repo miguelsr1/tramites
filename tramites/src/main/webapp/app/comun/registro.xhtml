@@ -77,13 +77,22 @@
                                 <p:ajax event="itemSelect" update="txtDepartamento txtMunicipio txtModalidad"/>
                             </p:autoComplete>
                             <p:outputLabel value="Departamento"/>
-                            <p:inputText id="txtDepartamento" value="#{registroView.entidadEducativaDto.nombreDepartamento}"/>
+                            <p:inputText id="txtDepartamento" value="#{registroView.entidadEducativaDto.nombreDepartamento}" readonly="true"/>
                             <p:outputLabel value="Municipio"/>
-                            <p:inputText id="txtMunicipio" value="#{registroView.entidadEducativaDto.nombreMunicipio}"/>
+                            <p:inputText id="txtMunicipio" value="#{registroView.entidadEducativaDto.nombreMunicipio}" readonly="true"/>
                             <p:outputLabel value="Modalidad Educativa"/>
-                            <p:inputText id="txtModalidad" value="#{registroView.entidadEducativaDto.inicialesModalidad}"/>
+                            <p:inputText id="txtModalidad" value="#{registroView.entidadEducativaDto.inicialesModalidad}" readonly="true"/>
+                            <p:outputLabel value="Año"/>
+                            <p:inputMask id="txtAnho" value="#{registroView.anho}" mask="9999" onchange="updateGrado();"/>
+                            <p:outputLabel value="Grado"/>
+                            <p:selectOneMenu id="cboGrado" value="">
+                                <f:selectItem itemLabel="Seleccione un valor" noSelectionOption="true"/>
+                                <f:selectItems value="#{registroView.lstGrados}" var="grado" itemValue="#{grado.grado}" itemLabel="#{grado.grado}"/>
+                            </p:selectOneMenu>
                         </p:panelGrid>
                     </p:outputPanel>
+                    
+                    <p:remoteCommand name="updateGrado" update="cboGrado"  />
                 </div>
             </div>
         </h:form>

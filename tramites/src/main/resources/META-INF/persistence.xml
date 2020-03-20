@@ -17,4 +17,12 @@
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>
+  <persistence-unit name="acreditacionPU" transaction-type="JTA">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <jta-data-source>java:/AcreditacionDS</jta-data-source>
+    <mapping-file>META-INF/consultas_acreditacion.xml</mapping-file>
+    <class>sv.gob.mined.tramites.model.dto.acreditacion.GradoDto</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <properties/>
+  </persistence-unit>
 </persistence>

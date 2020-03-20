@@ -21,6 +21,7 @@
                 from vw_catalogo_entidad_educativa vw
                     inner join departamento depa    on vw.codigo_departamento = depa.codigo_departamento
                     inner join municipio mun        on mun.codigo_departamento = depa.codigo_departamento and vw.codigo_municipio = mun.codigo_municipio
+                where vw.codigo_departamento = '01'
             ]]>
         </query>
     </named-native-query>
