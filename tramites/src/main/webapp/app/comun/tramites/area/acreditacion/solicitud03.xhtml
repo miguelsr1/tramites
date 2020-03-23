@@ -1,0 +1,78 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core"
+    template="#{pageContext.servletContext.contextPath}/resources/template/plantilla.xhtml">
+
+    <ui:define name="titulo">
+        <div class="header-content">
+            <h2 style="line-height: 1.5">Solicitud de certificación de auténticas</h2>
+        </div>
+    </ui:define>
+
+    <ui:define name="contenido">
+        <h:form prependId="false">
+            <div id="pricing">
+                <div class="ui-g ui-fluid">
+                    <p:outputPanel style="width: 100%" id="outTipoTramite">
+                        <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-3 col3_left, ui-g-12 ui-md-9 col9_left"
+                                     style="margin: 0 auto; width: 70%;"
+                                     styleClass="form-group ui-panelgrid-blank" layout="grid">
+                            <p:outputLabel value="Documento"/>
+                            <p:selectOneMenu>
+                                <f:selectItem itemLabel="Seleccione una opción" noSelectionOption="true"/>
+                                <f:selectItem itemValue="0" itemLabel="TÍTULO"/>
+                                <f:selectItem itemValue="1" itemLabel="CERTIFICADO"/>
+                                <f:selectItem itemValue="2" itemLabel="CERTIFICACIÓN"/>
+                                <f:selectItem itemValue="3" itemLabel="FOSTOSTÁTICA"/>
+                                <f:selectItem itemValue="4" itemLabel="CONSTANCIA"/>
+                                <f:selectItem itemValue="5" itemLabel="REGISTRO DE TÍTULO"/>
+                                <f:selectItem itemValue="6" itemLabel="PAES"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Centro Educativo"/>
+                            <p:autoComplete value="#{solicitud01View.entidadEducativaDto}" completeMethod="#{solicitud01View.completeEntidadEducativa}">
+                                <p:ajax event="itemSelect"/>
+                            </p:autoComplete>
+                            <p:outputLabel value="Fecha de Documento"/>
+                            <p:calendar showOn="button" navigator="true" pattern="dd/MM/yyyy"/>
+                            <p:outputLabel value="Opción de bachillerato"/>
+                            <p:inputText />
+                            <p:outputLabel value="Cantidad de documentos"/>
+                            <p:inputNumber decimalPlaces="0" minValue="1" />
+                        </p:panelGrid>
+                        <br/><br/>
+                        <p:dataTable>
+                            <p:column headerText="Documento">
+                                
+                            </p:column>
+                            <p:column headerText="Centro Educativo">
+                                
+                            </p:column>
+                            <p:column headerText="Departamento">
+                                
+                            </p:column>
+                            <p:column headerText="Municipio">
+                                
+                            </p:column>
+                            <p:column headerText="Fecha Documento">
+                                
+                            </p:column>
+                            <p:column headerText="Opción de bachillerato">
+                                
+                            </p:column>
+                            <p:column headerText="Cantidad de Documentos">
+                                
+                            </p:column>
+                        </p:dataTable>
+                        
+                        <p:commandButton value="Guardar" style="width: 200px; margin: 0 auto;" />
+                    </p:outputPanel>
+                </div>
+            </div>
+        </h:form>
+
+        <h:outputStylesheet name="main.css" library="css" />
+    </ui:define>
+</ui:composition>

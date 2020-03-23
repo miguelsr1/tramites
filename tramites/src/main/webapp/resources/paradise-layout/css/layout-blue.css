@@ -20,28 +20,28 @@
 /* Predefined Colors */
 /* roboto-300 - latin */
 @font-face {
-  font-family: 'Roboto';
+  font-family: 'BemboStd';
   font-style: normal;
   font-weight: 300;
-  src: url("#{resource['paradise-layout:fonts/roboto-v15-latin-300.eot']}");
+  src: url("#{resource['paradise-layout:fonts/BemboStd.otf']}");
   /* IE9 Compat Modes */
   src: local("Roboto Light"), local("Roboto-Light"), url("#{resource['paradise-layout:fonts/roboto-v15-latin-300.eot']}#iefix") format("embedded-opentype"), url("#{resource['paradise-layout:fonts/roboto-v15-latin-300.woff2']}") format("woff2"), url("#{resource['paradise-layout:fonts/roboto-v15-latin-300.woff']}") format("woff"), url("#{resource['paradise-layout:fonts/roboto-v15-latin-300.ttf']}") format("truetype"), url("#{resource['paradise-layout:fonts/roboto-v15-latin-300.svg']}#Roboto") format("svg");
   /* Legacy iOS */ }
 /* roboto-regular - latin */
 @font-face {
-  font-family: 'Roboto';
+  font-family: 'BemboStd';
   font-style: normal;
   font-weight: 400;
-  src: url("#{resource['paradise-layout:fonts/roboto-v15-latin-regular.eot']}");
+  src: url("#{resource['paradise-layout:fonts/BemboStd.otf']}");
   /* IE9 Compat Modes */
   src: local("Roboto"), local("Roboto-Regular"), url("#{resource['paradise-layout:fonts/roboto-v15-latin-regular.eot']}#iefix") format("embedded-opentype"), url("#{resource['paradise-layout:fonts/roboto-v15-latin-regular.woff2']}") format("woff2"), url("#{resource['paradise-layout:fonts/roboto-v15-latin-regular.woff']}") format("woff"), url("#{resource['paradise-layout:fonts/roboto-v15-latin-regular.ttf']}") format("truetype"), url("#{resource['paradise-layout:fonts/roboto-v15-latin-regular.svg']}#Roboto") format("svg");
   /* Legacy iOS */ }
 /* roboto-700 - latin */
 @font-face {
-  font-family: 'Roboto';
+  font-family: 'BemboStd';
   font-style: normal;
   font-weight: 700;
-  src: url("#{resource['paradise-layout:fonts/roboto-v15-latin-700.eot']}");
+  src: url("#{resource['paradise-layout:fonts/BemboStd.otf']}");
   /* IE9 Compat Modes */
   src: local("Roboto Bold"), local("Roboto-Bold"), url("#{resource['paradise-layout:fonts/roboto-v15-latin-700.eot']}#iefix") format("embedded-opentype"), url("#{resource['paradise-layout:fonts/roboto-v15-latin-700.woff2']}") format("woff2"), url("#{resource['paradise-layout:fonts/roboto-v15-latin-700.woff']}") format("woff"), url("#{resource['paradise-layout:fonts/roboto-v15-latin-700.ttf']}") format("truetype"), url("#{resource['paradise-layout:fonts/roboto-v15-latin-700.svg']}#Roboto") format("svg");
   /* Legacy iOS */ }
@@ -486,7 +486,6 @@
   .dashboard .stats ul li .statsbar {
     width: 100%; } }
 .login-body {
-  background: url("#{resource['paradise-layout:images/login/bg-login.png']}");
   background-size: cover;
   height: auto; }
   .login-body .login-panel {
@@ -836,7 +835,7 @@ html {
   height: 100%; }
 
 body {
-  font-family: "Roboto", "Helvetica Neue", sans-serif;
+  font-family: "BemboStd", "Helvetica Neue", sans-serif;
   font-size: 13px;
   color: #757575;
   -webkit-font-smoothing: antialiased;

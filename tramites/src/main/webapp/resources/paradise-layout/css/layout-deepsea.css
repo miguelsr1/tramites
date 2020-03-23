@@ -486,7 +486,6 @@
   .dashboard .stats ul li .statsbar {
     width: 100%; } }
 .login-body {
-  background: url("#{resource['paradise-layout:images/login/bg-login.png']}");
   background-size: cover;
   height: auto; }
   .login-body .login-panel {

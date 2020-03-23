@@ -1,0 +1,50 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core"
+    template="#{pageContext.servletContext.contextPath}/resources/template/plantilla.xhtml">
+
+    <ui:define name="titulo">
+        <div class="header-content">
+            <h2 style="line-height: 1.5">Solicitud de marginación de título de bachiller / certificado</h2>
+        </div>
+    </ui:define>
+
+    <ui:define name="contenido">
+        <h:form prependId="false">
+            <div id="pricing">
+                <div class="ui-g ui-fluid">
+                    <p:outputPanel style="width: 100%" id="outTipoTramite">
+                        <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-3 col3_left, ui-g-12 ui-md-9 col9_left"
+                                     style="margin: 0 auto; width: 70%;"
+                                     styleClass="form-group ui-panelgrid-blank" layout="grid">
+                            <p:outputLabel value="Fecha de tramite" />
+                            <p:calendar showOn="button" navigator="true" pattern="dd/MM/yyyy" size="10" locale="es"/>
+                            <p:outputLabel value="NIE" />
+                            <p:inputText/>
+                            <p:outputLabel value="Nombre" />
+                            <p:inputText/>
+                            <p:outputLabel value="Correo electrónico" />
+                            <p:inputText/>
+                            <p:outputLabel value="Teléfono"/>
+                            <p:inputMask mask="9999-9999" size="10"/>
+                        </p:panelGrid>
+                        <br/><br/>
+                        <p:panelGrid columns="1" columnClasses="ui-g-12 col12_left" 
+                                     style="margin: 0 auto; width: 70%;"
+                                     styleClass="form-group ui-panelgrid-blank" layout="grid">
+                            <p:outputLabel value="Motivo por el cuál solicita el cambio de nombre"/>
+                            <p:inputTextarea  />
+                        </p:panelGrid>
+                        <p:commandButton value="Guardar" style="width: 200px; margin: 0 auto;" />
+                    </p:outputPanel>
+                </div>
+            </div>
+        </h:form>
+
+        <h:outputStylesheet name="main.css" library="css" />
+        <h:outputScript name="calendar-localization.js" library="js"/>
+    </ui:define>
+</ui:composition>

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package sv.gob.mined.tramites.model;
 
 import java.io.Serializable;
@@ -22,7 +21,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author misanchez
+ * @author DesarrolloPc
  */
 @Entity
 @Table(name = "ESTUDIANTE")
@@ -98,5 +97,5 @@ public class Estudiante implements Serializable {
     public String toString() {
         return "sv.gob.mined.tramites.model.Estudiante[ idEstudiante=" + idEstudiante + " ]";
     }
-
+    
 }

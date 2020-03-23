@@ -6,19 +6,22 @@
 package sv.gob.mined.tramites.model;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
  *
- * @author misanchez
+ * @author DesarrolloPc
  */
 @Entity
 @Table(name = "TIPO_TRAMITE")
@@ -37,6 +40,8 @@ public class TipoTramite implements Serializable {
     private String descripcionTraminte;
     @Column(name = "ORDEN")
     private Short orden;
+    @OneToMany(mappedBy = "idTipoTramite", fetch = FetchType.LAZY)
+    private List<Tramite> tramiteList;
 
     public TipoTramite() {
     }
@@ -67,6 +72,14 @@ public class TipoTramite implements Serializable {
 
     public void setOrden(Short orden) {
         this.orden = orden;
+    }
+
+    public List<Tramite> getTramiteList() {
+        return tramiteList;
+    }
+
+    public void setTramiteList(List<Tramite> tramiteList) {
+        this.tramiteList = tramiteList;
     }
 
     @Override

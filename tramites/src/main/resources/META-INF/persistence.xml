@@ -6,6 +6,8 @@
     <class>sv.gob.mined.tramites.model.Estudiante</class>
     <class>sv.gob.mined.tramites.model.TipoTramite</class>
     <class>sv.gob.mined.tramites.model.Persona</class>
+    <class>sv.gob.mined.tramites.model.TramCerRegRepo</class>
+    <class>sv.gob.mined.tramites.model.Tramite</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>
