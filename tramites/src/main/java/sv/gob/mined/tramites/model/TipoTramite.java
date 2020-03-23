@@ -29,6 +29,10 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "TipoTramite.findAll", query = "SELECT t FROM TipoTramite t")})
 public class TipoTramite implements Serializable {
 
+    @Size(max = 200)
+    @Column(name = "CORREO_NOTIFICACION")
+    private String correoNotificacion;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -105,6 +109,14 @@ public class TipoTramite implements Serializable {
     @Override
     public String toString() {
         return "sv.gob.mined.tramites.model.TipoTramite[ idTipoTramite=" + idTipoTramite + " ]";
+    }
+
+    public String getCorreoNotificacion() {
+        return correoNotificacion;
+    }
+
+    public void setCorreoNotificacion(String correoNotificacion) {
+        this.correoNotificacion = correoNotificacion;
     }
     
 }

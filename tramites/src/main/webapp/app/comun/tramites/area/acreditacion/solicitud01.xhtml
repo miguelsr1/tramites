@@ -17,7 +17,7 @@
             <div id="pricing">
                 <div class="ui-g ui-fluid">
                     <p:outputPanel style="width: 100%" id="outTipoTramite">
-                        <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-4 col4_left, ui-g-12 ui-md-8 col8_left"
+                        <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-4 col4_label, ui-g-12 ui-md-8 col8_left"
                                      style="margin: 0 auto; width: 70%;"
                                      styleClass="form-group ui-panelgrid-blank" layout="grid">
                             <p:outputLabel value="Centro Educativo"/>
@@ -66,7 +66,7 @@
                             </p:selectOneRadio> 
                         </p:panelGrid>
                         
-                        <p:commandButton value="Guardar" style="width: 200px; margin: 0 auto;" action=""/>
+                        <p:commandButton value="Guardar" style="width: 200px; margin: 0 auto;" action="#{solicitud01View.guardar()}" />
                     </p:outputPanel>
 
                     <p:remoteCommand name="updateGrado" update="cboGrado"  />

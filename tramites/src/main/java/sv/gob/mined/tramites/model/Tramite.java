@@ -23,6 +23,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -33,6 +34,13 @@ import javax.validation.constraints.NotNull;
 @NamedQueries({
     @NamedQuery(name = "Tramite.findAll", query = "SELECT t FROM Tramite t")})
 public class Tramite implements Serializable {
+
+    @OneToMany(mappedBy = "idTramite", fetch = FetchType.LAZY)
+    private List<Solicitud01> solicitud01List;
+
+    @Size(max = 20)
+    @Column(name = "CODIGO_TRAMITE")
+    private String codigoTramite;
 
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -52,8 +60,6 @@ public class Tramite implements Serializable {
     @JoinColumn(name = "ID_TIPO_TRAMITE", referencedColumnName = "ID_TIPO_TRAMITE")
     @ManyToOne(fetch = FetchType.LAZY)
     private TipoTramite idTipoTramite;
-    @OneToMany(mappedBy = "idTramite", fetch = FetchType.LAZY)
-    private List<TramCerRegRepo> tramCerRegRepoList;
 
     public Tramite() {
     }
@@ -102,14 +108,6 @@ public class Tramite implements Serializable {
         this.idTipoTramite = idTipoTramite;
     }
 
-    public List<TramCerRegRepo> getTramCerRegRepoList() {
-        return tramCerRegRepoList;
-    }
-
-    public void setTramCerRegRepoList(List<TramCerRegRepo> tramCerRegRepoList) {
-        this.tramCerRegRepoList = tramCerRegRepoList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -133,6 +131,22 @@ public class Tramite implements Serializable {
     @Override
     public String toString() {
         return "sv.gob.mined.tramites.model.Tramite[ idTramite=" + idTramite + " ]";
+    }
+
+    public String getCodigoTramite() {
+        return codigoTramite;
+    }
+
+    public void setCodigoTramite(String codigoTramite) {
+        this.codigoTramite = codigoTramite;
+    }
+
+    public List<Solicitud01> getSolicitud01List() {
+        return solicitud01List;
+    }
+
+    public void setSolicitud01List(List<Solicitud01> solicitud01List) {
+        this.solicitud01List = solicitud01List;
     }
     
 }

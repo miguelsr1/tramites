@@ -21,7 +21,7 @@
                                      style="margin: 0 auto; width: 70%;"
                                      styleClass="form-group ui-panelgrid-blank" layout="grid">
                             <p:outputLabel value="Fecha de tramite" />
-                            <p:calendar showOn="button" navigator="true" pattern="dd/MM/yyyy" size="10" locale="es"/>
+                            <p:calendar showOn="button" navigator="true" pattern="dd/MM/yyyy" size="10" locale="es" yearRange="c-100:c+100"/>
                             <p:outputLabel value="NIE" />
                             <p:inputText/>
                             <p:outputLabel value="Nombre" />
@@ -36,7 +36,7 @@
                                      style="margin: 0 auto; width: 70%;"
                                      styleClass="form-group ui-panelgrid-blank" layout="grid">
                             <p:outputLabel value="Motivo por el cuál solicita el cambio de nombre"/>
-                            <p:inputTextarea  />
+                            <p:inputTextarea  rows="5"/>
                         </p:panelGrid>
                         <p:commandButton value="Guardar" style="width: 200px; margin: 0 auto;" />
                     </p:outputPanel>

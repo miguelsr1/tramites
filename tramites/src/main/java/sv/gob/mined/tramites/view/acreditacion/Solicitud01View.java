@@ -12,7 +12,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import sv.gob.mined.tramites.model.TramCerRegRepo;
+import sv.gob.mined.tramites.model.Solicitud01;
 import sv.gob.mined.tramites.model.dto.acreditacion.GradoDto;
 import sv.gob.mined.tramites.model.dto.acreditacion.OpcionDto;
 import sv.gob.mined.tramites.model.dto.paquete.EntidadEducativaDto;
@@ -35,7 +35,7 @@ public class Solicitud01View {
     private String grado;
     private EntidadEducativaDto entidadEducativaDto;
 
-    private TramCerRegRepo tramCerRegRepo;
+    private Solicitud01 solicitud01;
 
     @ManagedProperty("#{catalogosServicio}")
     private CatalogosServicio catalogosServicio;
@@ -43,19 +43,21 @@ public class Solicitud01View {
     @PostConstruct
     public void init() {
         entidadEducativaDto = new EntidadEducativaDto();
-        tramCerRegRepo = new TramCerRegRepo();
+        solicitud01 = new Solicitud01();
         modalidad = "0";
         periodo = "0";
         jornada = "0";
     }
 
-    public TramCerRegRepo getTramCerRegRepo() {
-        return tramCerRegRepo;
+    public Solicitud01 getSolicitud01() {
+        return solicitud01;
     }
 
-    public void setTramCerRegRepo(TramCerRegRepo tramCerRegRepo) {
-        this.tramCerRegRepo = tramCerRegRepo;
+    public void setSolicitud01(Solicitud01 solicitud01) {
+        this.solicitud01 = solicitud01;
     }
+
+    
 
     public Integer getAnho() {
         return anho;
@@ -161,16 +163,27 @@ public class Solicitud01View {
     }
 
     public void guardar() {
-        tramCerRegRepo.setAnho(anho.shortValue());
-        tramCerRegRepo.setCertificacionNota(null);
-        tramCerRegRepo.setRegistroTitulo(null);
-        tramCerRegRepo.setReposicionTitulo(null);
-        tramCerRegRepo.setCodigoEntidad(entidadEducativaDto.getCodigoEntidad());
-        tramCerRegRepo.setGrado(grado);
-        tramCerRegRepo.setJornadaEstudio(jornada);
-        tramCerRegRepo.setOpcionBach(opcion);
-        tramCerRegRepo.setPeriodoGraduacion(periodo);
-        tramCerRegRepo.setTipoModalidad(modalidad);
+        solicitud01.setAnho(anho.shortValue());
+        for (String tramite : tramites) {
+            switch(tramite){
+                case "0":
+                    solicitud01.setCertificacionNota("1");
+                    break;
+                case "1":
+                    solicitud01.setRegistroTitulo("1");
+                    break;
+                case "2":
+                    solicitud01.setReposicionTitulo("1");
+                    break;
+            }
+        }
+        
+        solicitud01.setCodigoEntidad(entidadEducativaDto.getCodigoEntidad());
+        solicitud01.setGrado(grado);
+        solicitud01.setJornadaEstudio(jornada);
+        solicitud01.setOpcionBach(opcion);
+        solicitud01.setPeriodoGraduacion(periodo);
+        solicitud01.setModalidadAtencion(modalidad);
         
         
     }
