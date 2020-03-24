@@ -13,70 +13,75 @@
     </ui:define>
 
     <ui:define name="contenido">
-        <h:form prependId="false">
-            <div id="pricing">
-                <div class="ui-g ui-fluid">
-                    <p:panelGrid id="pngPersona" columns="2" columnClasses="ui-g-12 ui-md-6, ui-g-12 ui-md-6"
-                                 style="margin: 0 auto; width: 70%;"
-                                 styleClass="form-group ui-panelgrid-blank" layout="grid">
-                        <p:outputLabel value="¿Quién esta solicitando el trámite?"/>
+        <div id="pricing">
+            <div class="ui-g ui-fluid">
+                <p:panelGrid id="pngPersona" columns="2" columnClasses="ui-g-12 ui-md-6, ui-g-12 ui-md-6"
+                             style="margin: 0 auto; width: 70%;"
+                             styleClass="form-group ui-panelgrid-blank" layout="grid">
+                    <p:outputLabel value="¿Quién esta solicitando el trámite?"/>
 
-                        <p:selectOneRadio unselectable="false" value="#{registroView.tipoPersona}">
-                            <f:selectItem itemLabel="Estudiante" itemValue="E" />
-                            <f:selectItem itemLabel="Otra persona" itemValue="O" />
-                            <p:ajax update="outPersona" event="change"/>
-                        </p:selectOneRadio>
+                    <p:selectOneRadio unselectable="false" value="#{registroView.tipoPersona}">
+                        <f:selectItem itemLabel="Estudiante" itemValue="E" />
+                        <f:selectItem itemLabel="Otra persona" itemValue="O" />
+                        <p:ajax update="outPersona" event="change" />
+                    </p:selectOneRadio>
+                </p:panelGrid>
+
+                <p:outputPanel style="width: 100%" id="outPersona">
+                    <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-3 col3_left, ui-g-12 ui-md-9 col9_left"
+                                 style="margin: 0 auto; width: 70%;"
+                                 styleClass="form-group ui-panelgrid-blank" layout="grid" rendered="#{registroView.tipoPersona eq 'E'}">
+                        <p:outputLabel value="NIE "/>
+                        <p:inputNumber id="txtNie" value="#{registroView.nie}" size="12" onchange="updateEstudiante();" decimalPlaces="0" thousandSeparator=""/>
                     </p:panelGrid>
 
-                    <p:outputPanel style="width: 100%" id="outPersona">
-                        <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-3 col3_left, ui-g-12 ui-md-9 col9_left"
-                                     style="margin: 0 auto; width: 70%;"
-                                     styleClass="form-group ui-panelgrid-blank" layout="grid" rendered="#{registroView.tipoPersona eq 'E'}">
-                            <p:outputLabel value="NIE "/>
-                            <p:inputMask mask="99999999-" value="#{registroView.persona.dui}" size="12"/>
-                        </p:panelGrid>
+                    <p:panelGrid id="pngDatos" columns="2" columnClasses="ui-g-12 ui-md-3 col3_left, ui-g-12 ui-md-9 col9_left"
+                                 style="margin: 0 auto; width: 70%;"
+                                 styleClass="form-group ui-panelgrid-blank" layout="grid" rendered="#{(registroView.showDatosGenerales) or (registroView.tipoPersona eq 'E') or (registroView.tipoPersona eq 'O')}">
+                        <p:outputLabel value="DUI "/>
+                        <p:inputMask mask="99999999-9" value="#{registroView.dui}" size="12" onchange="updatePersona();"/>
+                        <p:outputLabel for="cboGenero" value="Genero "/>
+                        <p:selectOneMenu id="cboGenero" value="#{registroView.persona.genero}" required="true">
+                            <f:selectItem itemLabel="Seleccione un valor" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="Masculino" itemValue="M"/>
+                            <f:selectItem itemLabel="Femenino" itemValue="F"/>
+                            <f:selectItem itemLabel="Indefinido" itemValue="I"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Nombres " for="txtNombre"/>
+                        <p:inputText id="txtNombre" value="#{registroView.persona.nombres}" required="true"/>
+                        <p:outputLabel for="txtApellido" value="Apellidos " />
+                        <p:inputText id="txtApellido" value="#{registroView.persona.apellidos}" required="true"/>
+                        <p:outputLabel for="txtCorreo" value="Correo electrónico "/>
+                        <p:inputText id="txtCorreo" value="#{registroView.persona.correoElectronico}" 
+                                     requiredMessage="Por favor ingrese un correo válido"
+                                     validatorMessage="El formato del correo no es el correcto">
+                            <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                        </p:inputText>
+                        <p:outputLabel value="Teléfono "/>
+                        <p:inputMask mask="9999-9999" value="#{registroView.persona.telefono}"/>
+                    </p:panelGrid>
+                    <br/>
+                    <p:commandButton value="Siguiente" style="width: 200px; margin: 0 auto;" action="#{registroView.siguiente}"
+                                     rendered="#{(registroView.tipoPersona eq 'E') or (registroView.tipoPersona eq 'O')}"
+                                     update="pngDatos"/>
+                </p:outputPanel>
 
-                        <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-3 col3_left, ui-g-12 ui-md-9 col9_left"
-                                     style="margin: 0 auto; width: 70%;"
-                                     styleClass="form-group ui-panelgrid-blank" layout="grid" rendered="#{(registroView.tipoPersona eq 'E') or (registroView.tipoPersona eq 'O')}">
-                            <p:outputLabel value="DUI "/>
-                            <p:inputMask mask="99999999-9" value="#{registroView.persona.dui}" size="12"/>
-                            <p:outputLabel value="Genero "/>
-                            <p:selectOneMenu value="#{registroView.persona.genero}">
-                                <f:selectItem itemLabel="Seleccione un valor"/>
-                                <f:selectItem itemLabel="Masculino" itemValue="M"/>
-                                <f:selectItem itemLabel="Femenino" itemValue="F"/>
-                                <f:selectItem itemLabel="Indefinido" itemValue="I"/>
-                            </p:selectOneMenu>
-                            <p:outputLabel value="Nombres "/>
-                            <p:inputText value="#{registroView.persona.nombres}"/>
-                            <p:outputLabel value="Apellidos "/>
-                            <p:inputText value="#{registroView.persona.apellidos}"/>
-                            <p:outputLabel value="Correo electrónico "/>
-                            <p:inputText value="#{registroView.persona.correoElectronico}"/>
-                            <p:outputLabel value="Teléfono "/>
-                            <p:inputMask mask="9999-9999" value="#{registroView.persona.telefono}"/>
-                        </p:panelGrid>
-                        <br/>
-                        <p:commandButton value="Siguiente" style="width: 200px; margin: 0 auto;" rendered="#{(registroView.tipoPersona eq 'E') or (registroView.tipoPersona eq 'O')}"/>
-                    </p:outputPanel>
-
-
-                    <p:outputPanel style="width: 100%" id="outTipoTramite">
-                        <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-4 col4_left, ui-g-12 ui-md-8 col8_left"
-                                     style="margin: 0 auto; width: 70%;"
-                                     styleClass="form-group ui-panelgrid-blank" layout="grid">
-                            <p:outputLabel value="Tipo de trámite que solicita"/>
-                            <p:selectOneMenu>
-                                <f:selectItem itemLabel="Seleccione un valor" noSelectionOption="true"/>
-                                <f:selectItems value="#{registroView.lstTipoTramite}" var="tipo" itemValue="#{tipo.idTipoTramite}" itemLabel="#{tipo.descripcionTraminte}"/>
-                            </p:selectOneMenu>
-                        </p:panelGrid>
-                    </p:outputPanel>
-                </div>
+                <p:outputPanel style="width: 100%" id="outTipoTramite">
+                    <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-4 col4_left, ui-g-12 ui-md-8 col8_left"
+                                 style="margin: 0 auto; width: 70%;"
+                                 styleClass="form-group ui-panelgrid-blank" layout="grid">
+                        <p:outputLabel value="Tipo de trámite que solicita"/>
+                        <p:selectOneMenu>
+                            <f:selectItem itemLabel="Seleccione un valor" noSelectionOption="true"/>
+                            <f:selectItems value="#{registroView.lstTipoTramite}" var="tipo" itemValue="#{tipo.idTipoTramite}" itemLabel="#{tipo.descripcionTraminte}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                </p:outputPanel>
             </div>
-        </h:form>
+        </div>
 
+        <p:remoteCommand name="updateEstudiante" update="pngDatos" process="@this,txtNie" action="#{registroView.findEstudiante()}" />
+        <p:remoteCommand name="updatePersona" update="pngDatos" action="#{registroView.findPersona()}" />
         <h:outputStylesheet name="main.css" library="css" />
     </ui:define>
 </ui:composition>

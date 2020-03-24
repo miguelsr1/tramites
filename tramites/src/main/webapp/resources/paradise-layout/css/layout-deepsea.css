@@ -563,7 +563,7 @@
   .exception-body.access {
     background-image: url("#{resource['paradise-layout:images/exception/access-bg.png']}"); }
   .exception-body.notfound {
-    background-image: url("#{resource['paradise-layout:images/exception/404-bg.png']}"); }
+    }
   .exception-body .exception-panel {
     width: 400px;
     margin: 0 auto;

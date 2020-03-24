@@ -16,6 +16,7 @@
     </h:head>
 
     <h:body styleClass="landing-body">
+
         <div class="landing-wrapper">
             <div id="header">
                 <div class="header-top">
@@ -28,10 +29,32 @@
                 </div>
             </div>
 
+            <h:form prependId="false">
+                <p:messages id="growl" closable="true">
+                    <p:autoUpdate />
+                </p:messages>
+                <ui:insert name="contenido"/>
 
-            <ui:insert name="contenido"/>
+                <p:ajaxStatus>
+                    <f:facet name="default">
 
+                    </f:facet>
+                    <f:facet name="start">
+                        <div id="div_modal" class="layout-content ui-widget-overlay ui-dialog-mask" style="z-index: 1000;"></div>
+                        <div id="ajax_gif" class="ui-tooltip-text ui-corner-all ui-shadow">
+                            <i class="fa fa-refresh fa-spin ajax-loader" aria-hidden="true" 
+                               style="color: #349ffb; font-size: 36px; display: block;  position: relative;  top: 18%;  transform: translateY(-18%);"></i>
+                        </div>
+                    </f:facet>
+
+                    <f:facet name="complete">
+                        <h:outputText value="" />
+                    </f:facet>
+                </p:ajaxStatus>
+            </h:form>
         </div>
+
+
 
         <h:outputStylesheet name="main.css" library="css" />
         <h:outputStylesheet name="css/animate.css" library="paradise-layout" />

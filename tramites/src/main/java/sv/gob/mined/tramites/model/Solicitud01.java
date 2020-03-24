@@ -7,7 +7,6 @@ package sv.gob.mined.tramites.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,8 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  *
@@ -33,37 +30,26 @@ public class Solicitud01 implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "ID_SOLICITUD01")
     private BigDecimal idSolicitud01;
-    @Size(max = 5)
     @Column(name = "CODIGO_ENTIDAD")
     private String codigoEntidad;
     @Column(name = "ANHO")
     private Short anho;
-    @Size(max = 6)
     @Column(name = "OPCION_BACH")
     private String opcionBach;
-    @Size(max = 1)
     @Column(name = "MODALIDAD_ATENCION")
     private String modalidadAtencion;
-    @Size(max = 1)
     @Column(name = "PERIODO_GRADUACION")
     private String periodoGraduacion;
-    @Size(max = 1)
     @Column(name = "JORNADA_ESTUDIO")
     private String jornadaEstudio;
-    @Size(max = 1)
     @Column(name = "CERTIFICACION_NOTA")
     private String certificacionNota;
-    @Size(max = 1)
     @Column(name = "REGISTRO_TITULO")
     private String registroTitulo;
-    @Size(max = 1)
     @Column(name = "REPOSICION_TITULO")
     private String reposicionTitulo;
-    @Size(max = 2)
     @Column(name = "GRADO")
     private String grado;
     @JoinColumn(name = "ID_TRAMITE", referencedColumnName = "ID_TRAMITE")

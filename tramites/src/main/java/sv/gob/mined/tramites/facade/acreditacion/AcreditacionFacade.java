@@ -10,6 +10,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import sv.gob.mined.tramites.model.dto.acreditacion.EstudianteDto;
 import sv.gob.mined.tramites.model.dto.acreditacion.GradoDto;
 import sv.gob.mined.tramites.model.dto.acreditacion.OpcionDto;
 
@@ -38,5 +39,17 @@ public class AcreditacionFacade {
         q.setParameter(3, grado);
 
         return q.getResultList();
+    }
+
+    public EstudianteDto getEstudianteByNieOrDui(String nie, String dui) {
+        Query q = em.createNamedQuery("Acreditacion.Estudiante", EstudianteDto.class);
+        q.setParameter(1, Long.parseLong(nie));
+        q.setParameter(2, dui);
+
+        if (q.getResultList().isEmpty()) {
+            return null;
+        } else {
+            return (EstudianteDto) q.getResultList().get(0);
+        }
     }
 }

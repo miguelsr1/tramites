@@ -22,3 +22,15 @@
 .col2_label{width: 16.67%;text-align: right;}
 .col1{width: 8.33%;}
 .col1_label{width: 8.33%;text-align: right;}
+
+#ajax_gif{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left:0;
+    right:0;
+    margin: auto;
+    width:60px;
+    height: 60px;
+    z-index:1000; text-align: center; background: white;
+}

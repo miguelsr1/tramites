@@ -37,6 +37,26 @@
         </query>
     </named-native-query>
     
+    <named-native-query name="Acreditacion.Estudiante" 
+                        result-class="sv.gob.mined.tramites.model.dto.acreditacion.EstudianteDto">
+        <query>
+            <![CDATA[
+                select 
+                    rownum          idRow,
+                    nie, 
+                    dui, 
+                    nombres, 
+                    apellidos, 
+                    codigo_genero   genero, 
+                    email           correoElectronico, 
+                    tel_cel         telefono
+                from alumno 
+                where nie = ?1 or 
+                    dui = ?2
+            ]]>
+        </query>
+    </named-native-query>
+    
     <named-native-query name="Acreditacion.Opcion" 
                         result-class="sv.gob.mined.tramites.model.dto.acreditacion.OpcionDto">
         <query>

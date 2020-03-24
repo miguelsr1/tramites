@@ -26,6 +26,7 @@
     <mapping-file>META-INF/consultas_acreditacion.xml</mapping-file>
     <class>sv.gob.mined.tramites.model.dto.acreditacion.GradoDto</class>
     <class>sv.gob.mined.tramites.model.dto.acreditacion.OpcionDto</class>
+    <class>sv.gob.mined.tramites.model.dto.acreditacion.EstudianteDto</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>

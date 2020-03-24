@@ -5,13 +5,13 @@
  */
 package sv.gob.mined.tramites.view.acreditacion;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
 import sv.gob.mined.tramites.model.Solicitud01;
 import sv.gob.mined.tramites.model.dto.acreditacion.GradoDto;
 import sv.gob.mined.tramites.model.dto.acreditacion.OpcionDto;
@@ -24,7 +24,7 @@ import sv.gob.mined.tramites.servicio.CatalogosServicio;
  */
 @ManagedBean
 @ViewScoped
-public class Solicitud01View {
+public class Solicitud01View implements Serializable {
 
     private Integer anho;
     private String opcion;
@@ -34,19 +34,37 @@ public class Solicitud01View {
     private String jornada;
     private String grado;
     private EntidadEducativaDto entidadEducativaDto;
+    private List<GradoDto> lstGrado;
+    private List<OpcionDto> lstOpcion;
 
     private Solicitud01 solicitud01;
 
-    @ManagedProperty("#{catalogosServicio}")
+    @Inject
     private CatalogosServicio catalogosServicio;
 
     @PostConstruct
     public void init() {
-        entidadEducativaDto = new EntidadEducativaDto();
+        //entidadEducativaDto = new EntidadEducativaDto();
         solicitud01 = new Solicitud01();
         modalidad = "0";
         periodo = "0";
         jornada = "0";
+    }
+
+    public List<GradoDto> getLstGrado() {
+        return lstGrado;
+    }
+
+    public void setLstGrado(List<GradoDto> lstGrado) {
+        this.lstGrado = lstGrado;
+    }
+
+    public List<OpcionDto> getLstOpcion() {
+        return lstOpcion;
+    }
+
+    public void setLstOpcion(List<OpcionDto> lstOpcion) {
+        this.lstOpcion = lstOpcion;
     }
 
     public Solicitud01 getSolicitud01() {
@@ -56,8 +74,6 @@ public class Solicitud01View {
     public void setSolicitud01(Solicitud01 solicitud01) {
         this.solicitud01 = solicitud01;
     }
-
-    
 
     public Integer getAnho() {
         return anho;
@@ -146,26 +162,22 @@ public class Solicitud01View {
         return lst.stream().filter(e -> e.getCodigoEntidad().equals(value.split(" - ")[0])).collect(Collectors.toList()).get(0);
     }
 
-    public List<GradoDto> getLstGrados() {
-        if (entidadEducativaDto.getCodigoEntidad() != null && anho != null) {
-            return catalogosServicio.getLstGradosByCodEntAndAnho(entidadEducativaDto.getCodigoEntidad(), anho);
-        } else {
-            return new ArrayList();
+    public void findLstGrados() {
+        if (entidadEducativaDto != null && entidadEducativaDto.getCodigoEntidad() != null && anho != null) {
+            lstGrado = catalogosServicio.getLstGradosByCodEntAndAnho(entidadEducativaDto.getCodigoEntidad(), anho);
         }
     }
 
-    public List<OpcionDto> getLstOpcion() {
-        if (entidadEducativaDto.getCodigoEntidad() != null && anho != null && grado != null) {
-            return catalogosServicio.getLstOpcion(entidadEducativaDto.getCodigoEntidad(), anho, grado);
-        } else {
-            return new ArrayList();
+    public void findLstOpcion() {
+        if (entidadEducativaDto != null && entidadEducativaDto.getCodigoEntidad() != null && anho != null && grado != null) {
+            lstOpcion = catalogosServicio.getLstOpcion(entidadEducativaDto.getCodigoEntidad(), anho, grado);
         }
     }
 
     public void guardar() {
         solicitud01.setAnho(anho.shortValue());
         for (String tramite : tramites) {
-            switch(tramite){
+            switch (tramite) {
                 case "0":
                     solicitud01.setCertificacionNota("1");
                     break;
@@ -177,14 +189,13 @@ public class Solicitud01View {
                     break;
             }
         }
-        
+
         solicitud01.setCodigoEntidad(entidadEducativaDto.getCodigoEntidad());
         solicitud01.setGrado(grado);
         solicitud01.setJornadaEstudio(jornada);
         solicitud01.setOpcionBach(opcion);
         solicitud01.setPeriodoGraduacion(periodo);
         solicitud01.setModalidadAtencion(modalidad);
-        
-        
+
     }
 }

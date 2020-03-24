@@ -7,22 +7,23 @@ package sv.gob.mined.tramites.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  *
@@ -37,35 +38,24 @@ public class Persona implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "ID_PERSONA")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqPersona")
+    @SequenceGenerator(name = "seqPersona", sequenceName = "SEQ_PERSONA", allocationSize = 1, initialValue = 1)
     private BigDecimal idPersona;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 150)
     @Column(name = "NOMBRES")
     private String nombres;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 150)
     @Column(name = "APELLIDOS")
     private String apellidos;
-    @Size(max = 10)
     @Column(name = "DUI")
     private String dui;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "GENERO")
     private Character genero;
-    @Size(max = 250)
     @Column(name = "CORREO_ELECTRONICO")
     private String correoElectronico;
-    @Size(max = 9)
     @Column(name = "TELEFONO")
     private String telefono;
-    @Basic(optional = false)
-    @NotNull
+    @Column(name = "MIGRACION")
+    private String migracion;
     @Column(name = "FECHA_INSERCION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaInsercion;
@@ -93,6 +83,14 @@ public class Persona implements Serializable {
 
     public void setIdPersona(BigDecimal idPersona) {
         this.idPersona = idPersona;
+    }
+
+    public String getMigracion() {
+        return migracion;
+    }
+
+    public void setMigracion(String migracion) {
+        this.migracion = migracion;
     }
 
     public String getNombres() {
@@ -152,6 +150,9 @@ public class Persona implements Serializable {
     }
 
     public List<Estudiante> getEstudianteList() {
+        if (estudianteList == null) {
+            estudianteList = new ArrayList();
+        }
         return estudianteList;
     }
 
@@ -183,5 +184,5 @@ public class Persona implements Serializable {
     public String toString() {
         return "sv.gob.mined.tramites.model.Persona[ idPersona=" + idPersona + " ]";
     }
-    
+
 }

@@ -5,11 +5,14 @@
  */
 package sv.gob.mined.tramites.view;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
+import sv.gob.mined.tramites.facade.TramitesFacade;
+import sv.gob.mined.tramites.model.Estudiante;
 import sv.gob.mined.tramites.model.Persona;
 import sv.gob.mined.tramites.model.TipoTramite;
 import sv.gob.mined.tramites.servicio.CatalogosServicio;
@@ -20,18 +23,49 @@ import sv.gob.mined.tramites.servicio.CatalogosServicio;
  */
 @ManagedBean
 @ViewScoped
-public class RegistroView {
+public class RegistroView implements Serializable {
 
+    private String dui;
+    private String nie;
     private String tipoPersona;
     private Persona persona;
+    private Estudiante estudiante;
 
-    @ManagedProperty("#{catalogosServicio}")
+    private Boolean showDatosGenerales = false;
+
+    @Inject
     private CatalogosServicio catalogosServicio;
+    @Inject
+    private TramitesFacade tramitesFacade;
 
     @PostConstruct
     public void init() {
         persona = new Persona();
         tipoPersona = "";
+    }
+
+    public String getNie() {
+        return nie;
+    }
+
+    public void setNie(String nie) {
+        this.nie = nie;
+    }
+
+    public String getDui() {
+        return dui;
+    }
+
+    public void setDui(String dui) {
+        this.dui = dui;
+    }
+
+    public Boolean getShowDatosGenerales() {
+        return showDatosGenerales;
+    }
+
+    public void setShowDatosGenerales(Boolean showDatosGenerales) {
+        this.showDatosGenerales = showDatosGenerales;
     }
 
     public Persona getPersona() {
@@ -50,15 +84,32 @@ public class RegistroView {
         this.tipoPersona = tipoPersona;
     }
 
-    public CatalogosServicio getCatalogosServicio() {
-        return catalogosServicio;
-    }
-
-    public void setCatalogosServicio(CatalogosServicio catalogosServicio) {
-        this.catalogosServicio = catalogosServicio;
-    }
-
     public List<TipoTramite> getLstTipoTramite() {
         return catalogosServicio.getLstTipoTramite();
+    }
+
+    public void siguiente() {
+        tramitesFacade.guardarPersona(persona);
+    }
+
+    public void findEstudiante() {
+        estudiante = catalogosServicio.findEstudiante(nie, dui);
+        if (estudiante != null) {
+            persona = estudiante.getIdPersona();
+            dui = persona.getDui();
+            nie = estudiante.getNie().toString();
+        }
+    }
+
+    public void findPersona() {
+        estudiante = catalogosServicio.findEstudiante(nie, dui);
+
+        if (estudiante == null) {
+            persona = tramitesFacade.findPersonaByDui(dui);
+            if (persona == null) {
+                persona = new Persona();
+                persona.setDui(dui);
+            }
+        }
     }
 }
