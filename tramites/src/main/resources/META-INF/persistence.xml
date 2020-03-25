@@ -9,6 +9,9 @@
     <class>sv.gob.mined.tramites.model.Solicitud01</class>
     <class>sv.gob.mined.tramites.model.InformacionTramite</class>
     <class>sv.gob.mined.tramites.model.Tramite</class>
+    <class>sv.gob.mined.tramites.model.Pais</class>
+    <class>sv.gob.mined.tramites.model.Ciudad</class>
+    <class>sv.gob.mined.tramites.model.Solicitud02</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>

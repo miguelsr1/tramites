@@ -10,11 +10,14 @@ import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -31,6 +34,8 @@ public class Solicitud01 implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Column(name = "ID_SOLICITUD01")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_SOLICITUD01")
+    @SequenceGenerator(name = "SEQ_SOLICITUD01", sequenceName = "SEQ_SOLICITUD01", allocationSize = 1, initialValue = 1)
     private BigDecimal idSolicitud01;
     @Column(name = "CODIGO_ENTIDAD")
     private String codigoEntidad;

@@ -31,7 +31,9 @@ public class RegistroView implements Serializable {
     private Persona persona;
     private Estudiante estudiante;
 
+    private Boolean showTipoPersona = true;
     private Boolean showDatosGenerales = false;
+    private Boolean showTipoTramite = false;
 
     @Inject
     private CatalogosServicio catalogosServicio;
@@ -42,6 +44,22 @@ public class RegistroView implements Serializable {
     public void init() {
         persona = new Persona();
         tipoPersona = "";
+    }
+
+    public Boolean getShowTipoPersona() {
+        return showTipoPersona;
+    }
+
+    public void setShowTipoPersona(Boolean showTipoPersona) {
+        this.showTipoPersona = showTipoPersona;
+    }
+
+    public Boolean getShowTipoTramite() {
+        return showTipoTramite;
+    }
+
+    public void setShowTipoTramite(Boolean showTipoTramite) {
+        this.showTipoTramite = showTipoTramite;
     }
 
     public String getNie() {
@@ -90,6 +108,9 @@ public class RegistroView implements Serializable {
 
     public void siguiente() {
         tramitesFacade.guardarPersona(persona);
+
+        showDatosGenerales = false;
+        showTipoTramite = true;
     }
 
     public void findEstudiante() {
@@ -111,5 +132,10 @@ public class RegistroView implements Serializable {
                 persona.setDui(dui);
             }
         }
+    }
+
+    public void ocultarTipoPersona() {
+        showTipoPersona = false;
+        showDatosGenerales = true;
     }
 }

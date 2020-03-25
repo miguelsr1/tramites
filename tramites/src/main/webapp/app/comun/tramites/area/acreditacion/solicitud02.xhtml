@@ -13,38 +13,42 @@
     </ui:define>
 
     <ui:define name="contenido">
-        <h:form prependId="false">
-            <div id="pricing">
-                <div class="ui-g ui-fluid">
-                    <p:outputPanel style="width: 100%" id="outTipoTramite">
-                        <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-4 col4_left, ui-g-12 ui-md-8 col8_left"
-                                     style="margin: 0 auto; width: 70%;"
-                                     styleClass="form-group ui-panelgrid-blank" layout="grid">
-                            <p:outputLabel value="País donde estudió"/>
-                            <p:selectOneMenu />
-                            <p:outputLabel value="Ciudad"/>
-                            <p:selectOneMenu />
-                            <p:outputLabel value="Grado académico obtenido"/>
-                            <p:inputText />
-                        </p:panelGrid>
-                        
-                        <p:panelGrid columns="1" style="margin: 0 auto; width: 70%" styleClass="form-group ui-panelgrid-blank" layout="grid"
-                                     columnClasses="col12_left">
-                            <p:outputLabel value="Documentos que presentará"/>
-                            <p:selectManyCheckbox layout="responsive" columns="3" >
-                                <f:selectItem itemLabel="Título" itemValue="0"/>
-                                <f:selectItem itemLabel="Diploma" itemValue="1"/>
-                                <f:selectItem itemLabel="Certificado" itemValue="2"/>
-                            </p:selectManyCheckbox> 
-                            <p:outputLabel value="Extendido por:"/>
-                            <p:inputText />
-                        </p:panelGrid>
-                        
-                        <p:commandButton value="Guardar" style="width: 200px; margin: 0 auto;" />
-                    </p:outputPanel>
-                </div>
+        <div id="pricing">
+            <div class="ui-g ui-fluid">
+                <p:outputPanel style="width: 100%" id="outTipoTramite">
+                    <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-4 col4_left, ui-g-12 ui-md-8 col8_left"
+                                 style="margin: 0 auto; width: 70%;"
+                                 styleClass="form-group ui-panelgrid-blank" layout="grid">
+                        <p:outputLabel value="País donde estudió"/>
+                        <p:autoComplete id="autoPais" value="#{solicitud02View.codigoPais}" completeMethod="#{solicitud02View.completePais}" var="pais" 
+                                        itemValue="#{pais.codigoPais}" itemLabel="#{pais.nombrePais}">
+                            <p:ajax event="itemSelect" />
+                        </p:autoComplete>
+                        <p:outputLabel value="Ciudad"/>
+                        <p:autoComplete id="autoCiudad" value="#{solicitud02View.idCiudad}" completeMethod="#{solicitud02View.completeCity}" var="ciudad"
+                                        itemValue="#{ciudad.idCiudad}" itemLabel="#{ciudad.nombreCiudad}">
+                            <p:ajax event="itemSelect" />
+                        </p:autoComplete>
+                        <p:outputLabel value="Grado académico obtenido"/>
+                        <p:inputText />
+                    </p:panelGrid>
+
+                    <p:panelGrid columns="1" style="margin: 0 auto; width: 70%" styleClass="form-group ui-panelgrid-blank" layout="grid"
+                                 columnClasses="col12_left">
+                        <p:outputLabel value="Documentos que presentará"/>
+                        <p:selectManyCheckbox layout="responsive" columns="3" >
+                            <f:selectItem itemLabel="Título" itemValue="0"/>
+                            <f:selectItem itemLabel="Diploma" itemValue="1"/>
+                            <f:selectItem itemLabel="Certificado" itemValue="2"/>
+                        </p:selectManyCheckbox> 
+                        <p:outputLabel value="Extendido por:"/>
+                        <p:inputText />
+                    </p:panelGrid>
+
+                    <p:commandButton value="Guardar" style="width: 200px; margin: 0 auto;" />
+                </p:outputPanel>
             </div>
-        </h:form>
+        </div>
 
         <h:outputStylesheet name="main.css" library="css" />
     </ui:define>

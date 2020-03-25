@@ -21,7 +21,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Size;
 
 /**
  *
@@ -34,9 +33,11 @@ import javax.validation.constraints.Size;
 public class Tramite implements Serializable {
 
     @OneToMany(mappedBy = "idTramite", fetch = FetchType.LAZY)
+    private List<Solicitud02> solicitud02List;
+
+    @OneToMany(mappedBy = "idTramite", fetch = FetchType.LAZY)
     private List<Solicitud01> solicitud01List;
 
-    @Size(max = 20)
     @Column(name = "CODIGO_TRAMITE")
     private String codigoTramite;
 
@@ -144,5 +145,13 @@ public class Tramite implements Serializable {
     public void setSolicitud01List(List<Solicitud01> solicitud01List) {
         this.solicitud01List = solicitud01List;
     }
-    
+
+    public List<Solicitud02> getSolicitud02List() {
+        return solicitud02List;
+    }
+
+    public void setSolicitud02List(List<Solicitud02> solicitud02List) {
+        this.solicitud02List = solicitud02List;
+    }
+
 }

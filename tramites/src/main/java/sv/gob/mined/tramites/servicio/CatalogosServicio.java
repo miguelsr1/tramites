@@ -16,7 +16,9 @@ import sv.gob.mined.tramites.facade.CatalogosFacade;
 import sv.gob.mined.tramites.facade.TramitesFacade;
 import sv.gob.mined.tramites.facade.acreditacion.AcreditacionFacade;
 import sv.gob.mined.tramites.facade.paquete.EntidadEducativaFacade;
+import sv.gob.mined.tramites.model.Ciudad;
 import sv.gob.mined.tramites.model.Estudiante;
+import sv.gob.mined.tramites.model.Pais;
 import sv.gob.mined.tramites.model.Persona;
 import sv.gob.mined.tramites.model.TipoTramite;
 import sv.gob.mined.tramites.model.dto.acreditacion.EstudianteDto;
@@ -34,6 +36,8 @@ public class CatalogosServicio implements Serializable {
 
     private List<EntidadEducativaDto> lstEntidadesEducativa;
     private List<TipoTramite> lstTipoTramite;
+    private List<Pais> lstPais;
+    private List<Ciudad> lstCiudad;
 
     @Inject
     private CatalogosFacade catalogosFacade;
@@ -46,8 +50,6 @@ public class CatalogosServicio implements Serializable {
 
     @PostConstruct
     public void init() {
-        lstEntidadesEducativa = entidadEducativaFacade.getLstEntidadEducativaDtos();
-        lstTipoTramite = catalogosFacade.getLstTipoTramites();
     }
 
     public CatalogosFacade getCatalogosFacade() {
@@ -67,10 +69,16 @@ public class CatalogosServicio implements Serializable {
     }
 
     public List<TipoTramite> getLstTipoTramite() {
+        if (lstTipoTramite == null) {
+            lstTipoTramite = catalogosFacade.getLstTipoTramites();
+        }
         return lstTipoTramite;
     }
 
     public List<EntidadEducativaDto> getLstEntidadEducativa() {
+        if (lstEntidadesEducativa == null) {
+            lstEntidadesEducativa = entidadEducativaFacade.getLstEntidadEducativaDtos();
+        }
         return lstEntidadesEducativa;
     }
 
@@ -113,6 +121,25 @@ public class CatalogosServicio implements Serializable {
                 return null;
             }
         }
+    }
+
+    public List<Pais> getLstPais() {
+        if (lstPais == null) {
+            lstPais = catalogosFacade.getLstPais();
+        }
+        return lstPais;
+    }
+
+    public List<Ciudad> getLstCiudad() {
+        if (lstCiudad == null) {
+            lstCiudad = catalogosFacade.getLstCiudad();
+        }
+        return lstCiudad;
+    }
+    
+    public List<Ciudad> getLstCiudad(String nombre, String codPais) {
+        return catalogosFacade.getLstCiudad(nombre, codPais);
+        
     }
 
 }
