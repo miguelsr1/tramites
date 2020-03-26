@@ -74,14 +74,19 @@
                                      style="margin: 0 auto; width: 70%;"
                                      styleClass="form-group ui-panelgrid-blank" layout="grid">
                             <p:outputLabel value="Tipo de trámite que solicita"/>
-                            <p:selectOneMenu>
+                            <p:selectOneMenu value="#{registroView.idTipoTramite}"  >
                                 <f:selectItem itemLabel="Seleccione un valor" noSelectionOption="true"/>
                                 <f:selectItems value="#{registroView.lstTipoTramite}" var="tipo" itemValue="#{tipo.idTipoTramite}" itemLabel="#{tipo.descripcionTraminte}"/>
+                                <p:ajax onsuccess="onClick('btnRedireccionar')"/>
                             </p:selectOneMenu>
                         </p:panelGrid>
                     </p:outputPanel>
 
                 </p:outputPanel>
+
+                <p:panel >
+                    <p:commandButton id="btnRedireccionar" value="ok" action="#{registroView.redireccionar}"/>
+                </p:panel>
             </div>
         </div>
 

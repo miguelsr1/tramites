@@ -16,9 +16,9 @@
         <div id="pricing">
             <div class="ui-g ui-fluid">
                 <p:outputPanel style="width: 100%" id="outTipoTramite">
-                    <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-4 col4_label, ui-g-12 ui-md-8 col8_left"
+                    <p:panelGrid columns="2" columnClasses="col4_label,col8_left"
                                  style="margin: 0 auto; width: 70%;"
-                                 styleClass="form-group ui-panelgrid-blank" layout="grid">
+                                 styleClass="form-group ui-panelgrid-blank" >
                         <p:outputLabel value="Centro Educativo"/>
                         <p:autoComplete value="#{solicitud01View.entidadEducativaDto}" completeMethod="#{solicitud01View.completeEntidadEducativa}">
                             <p:ajax event="itemSelect" update="txtDepartamento txtMunicipio txtModalidad"/>

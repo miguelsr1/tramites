@@ -28,6 +28,7 @@ public class RegistroView implements Serializable {
     private String dui;
     private String nie;
     private String tipoPersona;
+    private Integer idTipoTramite = 0;
     private Persona persona;
     private Estudiante estudiante;
 
@@ -44,6 +45,16 @@ public class RegistroView implements Serializable {
     public void init() {
         persona = new Persona();
         tipoPersona = "";
+    }
+
+    public Integer getIdTipoTramite() {
+        return idTipoTramite;
+    }
+
+    public void setIdTipoTramite(Integer idTipoTramite) {
+        if (idTipoTramite != null) {
+            this.idTipoTramite = idTipoTramite;
+        }
     }
 
     public Boolean getShowTipoPersona() {
@@ -137,5 +148,21 @@ public class RegistroView implements Serializable {
     public void ocultarTipoPersona() {
         showTipoPersona = false;
         showDatosGenerales = true;
+    }
+
+    public String redireccionar() {
+        String url;
+        switch (idTipoTramite) {
+            case 1:
+                url = "tramites/area/acreditacion/solicitud01.xhtml";
+                break;
+            case 2:
+                url = "tramites/area/acreditacion/solicitud02.xhtml";
+                break;
+            default:
+                url = "";
+                break;
+        }
+        return url;
     }
 }
