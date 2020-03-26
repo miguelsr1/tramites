@@ -14,7 +14,9 @@ import javax.inject.Inject;
 import sv.gob.mined.tramites.facade.TramitesFacade;
 import sv.gob.mined.tramites.model.Estudiante;
 import sv.gob.mined.tramites.model.Persona;
+import sv.gob.mined.tramites.model.Solicitud01;
 import sv.gob.mined.tramites.model.TipoTramite;
+import sv.gob.mined.tramites.model.Tramite;
 import sv.gob.mined.tramites.servicio.CatalogosServicio;
 
 /**
@@ -31,6 +33,7 @@ public class RegistroView implements Serializable {
     private Integer idTipoTramite = 0;
     private Persona persona;
     private Estudiante estudiante;
+    private Tramite tramite;
 
     private Boolean showTipoPersona = true;
     private Boolean showDatosGenerales = false;
@@ -44,7 +47,16 @@ public class RegistroView implements Serializable {
     @PostConstruct
     public void init() {
         persona = new Persona();
+        tramite = new Tramite();
         tipoPersona = "";
+    }
+
+    public Tramite getTramite() {
+        return tramite;
+    }
+
+    public void setTramite(Tramite tramite) {
+        this.tramite = tramite;
     }
 
     public Integer getIdTipoTramite() {
@@ -152,12 +164,23 @@ public class RegistroView implements Serializable {
 
     public String redireccionar() {
         String url;
+
+        tramite.setIdTipoTramite(new TipoTramite(idTipoTramite));
+        
+        
         switch (idTipoTramite) {
             case 1:
-                url = "tramites/area/acreditacion/solicitud01.xhtml";
+                Solicitud01 solicitud01 = new Solicitud01();
+                solicitud01.setIdTramite(tramite);
+                
+                tramite.getSolicitud01List().add(solicitud01);
+                
+                tramitesFacade.guardarTramite(tramite);
+                
+                url = "tramites/area/acreditacion/solicitud01";
                 break;
             case 2:
-                url = "tramites/area/acreditacion/solicitud02.xhtml";
+                url = "tramites/area/acreditacion/solicitud02";
                 break;
             default:
                 url = "";

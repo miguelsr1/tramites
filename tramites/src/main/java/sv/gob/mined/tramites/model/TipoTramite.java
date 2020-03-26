@@ -35,12 +35,22 @@ public class TipoTramite implements Serializable {
     private Integer idTipoTramite;
     @Column(name = "DESCRIPCION_TRAMINTE")
     private String descripcionTraminte;
+    @Column(name = "CODIGO_TRAMITE")
+    private String codigoTramite;
     @Column(name = "ORDEN")
     private Short orden;
     @OneToMany(mappedBy = "idTipoTramite", fetch = FetchType.LAZY)
     private List<Tramite> tramiteList;
 
     public TipoTramite() {
+    }
+
+    public String getCodigoTramite() {
+        return codigoTramite;
+    }
+
+    public void setCodigoTramite(String codigoTramite) {
+        this.codigoTramite = codigoTramite;
     }
 
     public TipoTramite(Integer idTipoTramite) {

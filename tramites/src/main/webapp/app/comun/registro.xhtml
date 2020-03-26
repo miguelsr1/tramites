@@ -84,8 +84,10 @@
 
                 </p:outputPanel>
 
-                <p:panel >
-                    <p:commandButton id="btnRedireccionar" value="ok" action="#{registroView.redireccionar}"/>
+                <p:panel visible="false">
+                    <p:commandButton id="btnRedireccionar" value="ok" action="#{registroView.redireccionar}" >
+                        <f:param name="idTramite" value="#{registroView.tramite.idTramite}"/>
+                    </p:commandButton>
                 </p:panel>
             </div>
         </div>

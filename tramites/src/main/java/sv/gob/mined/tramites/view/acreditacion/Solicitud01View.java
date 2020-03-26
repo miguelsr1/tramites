@@ -6,13 +6,17 @@
 package sv.gob.mined.tramites.view.acreditacion;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import sv.gob.mined.tramites.model.Solicitud01;
+import sv.gob.mined.tramites.model.Tramite;
 import sv.gob.mined.tramites.model.dto.acreditacion.GradoDto;
 import sv.gob.mined.tramites.model.dto.acreditacion.OpcionDto;
 import sv.gob.mined.tramites.model.dto.paquete.EntidadEducativaDto;
@@ -33,22 +37,29 @@ public class Solicitud01View implements Serializable {
     private String periodo;
     private String jornada;
     private String grado;
+
     private EntidadEducativaDto entidadEducativaDto;
     private List<GradoDto> lstGrado;
     private List<OpcionDto> lstOpcion;
 
     private Solicitud01 solicitud01;
+    private Tramite tramite;
 
     @Inject
     private CatalogosServicio catalogosServicio;
 
     @PostConstruct
     public void init() {
-        //entidadEducativaDto = new EntidadEducativaDto();
+        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+
         solicitud01 = new Solicitud01();
         modalidad = "0";
         periodo = "0";
         jornada = "0";
+
+        if (params.containsKey("idTramite")) {
+            tramite = catalogosServicio.getTramiteByPk(new BigDecimal(params.get("idTramite")));
+        }
     }
 
     public List<GradoDto> getLstGrado() {

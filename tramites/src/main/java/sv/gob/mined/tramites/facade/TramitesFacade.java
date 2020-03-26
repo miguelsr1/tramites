@@ -5,12 +5,17 @@
  */
 package sv.gob.mined.tramites.facade;
 
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import org.apache.commons.codec.digest.DigestUtils;
 import sv.gob.mined.tramites.model.Estudiante;
 import sv.gob.mined.tramites.model.Persona;
+import sv.gob.mined.tramites.model.Tramite;
 
 /**
  *
@@ -27,6 +32,38 @@ public class TramitesFacade {
             em.persist(persona);
         }
     }
+    
+    public Tramite getTramite(BigDecimal idTramite){
+        return em.find(Tramite.class, idTramite);
+    }
+    
+    public void guardarTramite(Tramite tramite){
+        if(tramite.getIdTramite() == null){
+            tramite.setFechaCreacion(new Date());
+
+            em.persist(tramite);
+            
+            String codTramite = codigoGeneradoTramite(tramite.getFechaCreacion(), tramite.getIdTramite(), tramite.getIdTipoTramite().getCodigoTramite());
+            
+            tramite.setCodigoTramite(codTramite);
+            
+            em.merge(tramite);
+        }
+    }
+
+    /**
+     * Este codigo generado se realizará en combinación de la fecha en la que se
+     * registra el trámite, el id generado de la tabla tramite y el código de la solicitud a realizar
+     *
+     * @return
+     */
+    private String codigoGeneradoTramite(Date fecha, BigDecimal idTramite, String codigoTramite) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmmssSSS");
+        String tmp = sdf.format(fecha) + "-" + idTramite.toString() + "-" + codigoTramite;
+
+        return DigestUtils.md5Hex(tmp);
+
+    }
 
     public Persona findPersonaByDui(String dui) {
         Query q = em.createQuery("SELECT p FROM Persona p WHERE p.dui = :dui", Persona.class);
@@ -37,7 +74,7 @@ public class TramitesFacade {
             return (Persona) q.getResultList().get(0);
         }
     }
-    
+
     public Estudiante findEstudianteByNie(String nie) {
         Query q = em.createQuery("SELECT e FROM Estudiante e WHERE e.nie = :nie", Estudiante.class);
         q.setParameter("nie", Long.parseLong(nie));

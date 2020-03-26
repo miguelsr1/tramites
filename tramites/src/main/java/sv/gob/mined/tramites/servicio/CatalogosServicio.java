@@ -6,6 +6,7 @@
 package sv.gob.mined.tramites.servicio;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -21,6 +22,7 @@ import sv.gob.mined.tramites.model.Estudiante;
 import sv.gob.mined.tramites.model.Pais;
 import sv.gob.mined.tramites.model.Persona;
 import sv.gob.mined.tramites.model.TipoTramite;
+import sv.gob.mined.tramites.model.Tramite;
 import sv.gob.mined.tramites.model.dto.acreditacion.EstudianteDto;
 import sv.gob.mined.tramites.model.dto.acreditacion.GradoDto;
 import sv.gob.mined.tramites.model.dto.acreditacion.OpcionDto;
@@ -50,6 +52,10 @@ public class CatalogosServicio implements Serializable {
 
     @PostConstruct
     public void init() {
+    }
+    
+    public Tramite getTramiteByPk(BigDecimal idTramite){
+        return tramitesFacade.getTramite(idTramite);
     }
 
     public CatalogosFacade getCatalogosFacade() {

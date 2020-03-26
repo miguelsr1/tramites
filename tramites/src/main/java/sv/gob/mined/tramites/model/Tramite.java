@@ -7,17 +7,22 @@ package sv.gob.mined.tramites.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -32,7 +37,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Tramite.findAll", query = "SELECT t FROM Tramite t")})
 public class Tramite implements Serializable {
 
-    @OneToMany(mappedBy = "idTramite", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "idTramite", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<Solicitud02> solicitud02List;
 
     @OneToMany(mappedBy = "idTramite", fetch = FetchType.LAZY)
@@ -45,6 +50,8 @@ public class Tramite implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Column(name = "ID_TRAMITE")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_TRAMITE")
+    @SequenceGenerator(name = "SEQ_TRAMITE", sequenceName = "SEQ_TRAMITE", allocationSize = 1, initialValue = 1)
     private BigDecimal idTramite;
     @Column(name = "FECHA_CREACION")
     @Temporal(TemporalType.TIMESTAMP)
@@ -139,6 +146,9 @@ public class Tramite implements Serializable {
     }
 
     public List<Solicitud01> getSolicitud01List() {
+        if(solicitud01List == null){
+            solicitud01List = new ArrayList();
+        }
         return solicitud01List;
     }
 
@@ -147,6 +157,9 @@ public class Tramite implements Serializable {
     }
 
     public List<Solicitud02> getSolicitud02List() {
+        if(solicitud02List == null){
+            solicitud02List = new ArrayList();
+        }
         return solicitud02List;
     }
 
