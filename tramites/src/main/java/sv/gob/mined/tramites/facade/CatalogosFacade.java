@@ -43,4 +43,10 @@ public class CatalogosFacade {
         Query q = em.createNativeQuery("SELECT * FROM Ciudad WHERE nombre_ciudad like '%" + nombreCiudad.toUpperCase() + "%' and codigo_Pais='" + codigoPais + "'", Ciudad.class);
         return q.getResultList();
     }
+
+    public TipoTramite getTipoTramiteByPk(Integer pk) {
+        Query q = em.createQuery("SELECT t FROM TipoTramite t WHERE t.idTipoTramite=:id", TipoTramite.class);
+        q.setParameter("id", pk);
+        return (TipoTramite) q.getResultList().get(0);
+    }
 }

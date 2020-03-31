@@ -11,13 +11,12 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
-import sv.gob.mined.tramites.facade.TramitesFacade;
 import sv.gob.mined.tramites.model.Estudiante;
 import sv.gob.mined.tramites.model.Persona;
-import sv.gob.mined.tramites.model.Solicitud01;
 import sv.gob.mined.tramites.model.TipoTramite;
 import sv.gob.mined.tramites.model.Tramite;
 import sv.gob.mined.tramites.servicio.CatalogosServicio;
+import sv.gob.mined.tramites.servicio.TramitesServicio;
 
 /**
  *
@@ -42,7 +41,7 @@ public class RegistroView implements Serializable {
     @Inject
     private CatalogosServicio catalogosServicio;
     @Inject
-    private TramitesFacade tramitesFacade;
+    private TramitesServicio tramitesServicio;
 
     @PostConstruct
     public void init() {
@@ -130,14 +129,14 @@ public class RegistroView implements Serializable {
     }
 
     public void siguiente() {
-        tramitesFacade.guardarPersona(persona);
+        tramitesServicio.guardarPersona(persona);
 
         showDatosGenerales = false;
         showTipoTramite = true;
     }
 
     public void findEstudiante() {
-        estudiante = catalogosServicio.findEstudiante(nie, dui);
+        estudiante = tramitesServicio.findEstudiante(nie, dui);
         if (estudiante != null) {
             persona = estudiante.getIdPersona();
             dui = persona.getDui();
@@ -146,10 +145,10 @@ public class RegistroView implements Serializable {
     }
 
     public void findPersona() {
-        estudiante = catalogosServicio.findEstudiante(nie, dui);
+        estudiante = tramitesServicio.findEstudiante(nie, dui);
 
         if (estudiante == null) {
-            persona = tramitesFacade.findPersonaByDui(dui);
+            persona = tramitesServicio.findPersonaByDui(dui);
             if (persona == null) {
                 persona = new Persona();
                 persona.setDui(dui);
@@ -161,22 +160,19 @@ public class RegistroView implements Serializable {
         showTipoPersona = false;
         showDatosGenerales = true;
     }
+    
+    public void guardarTramite(){
+        tramite.setIdPersona(persona);
+        tramite.setIdTipoTramite(new TipoTramite(idTipoTramite));
+        tramite.setEstadoTramite("D");
+        tramitesServicio.guardarTramite(tramite);
+    }
 
     public String redireccionar() {
         String url;
 
-        tramite.setIdTipoTramite(new TipoTramite(idTipoTramite));
-        
-        
         switch (idTipoTramite) {
             case 1:
-                Solicitud01 solicitud01 = new Solicitud01();
-                solicitud01.setIdTramite(tramite);
-                
-                tramite.getSolicitud01List().add(solicitud01);
-                
-                tramitesFacade.guardarTramite(tramite);
-                
                 url = "tramites/area/acreditacion/solicitud01";
                 break;
             case 2:

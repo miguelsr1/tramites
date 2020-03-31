@@ -35,6 +35,9 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Persona.findAll", query = "SELECT p FROM Persona p")})
 public class Persona implements Serializable {
 
+    @OneToMany(mappedBy = "idPersona", fetch = FetchType.LAZY)
+    private List<Tramite> tramiteList;
+
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -183,6 +186,14 @@ public class Persona implements Serializable {
     @Override
     public String toString() {
         return "sv.gob.mined.tramites.model.Persona[ idPersona=" + idPersona + " ]";
+    }
+
+    public List<Tramite> getTramiteList() {
+        return tramiteList;
+    }
+
+    public void setTramiteList(List<Tramite> tramiteList) {
+        this.tramiteList = tramiteList;
     }
 
 }

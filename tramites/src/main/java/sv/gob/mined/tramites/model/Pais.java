@@ -73,7 +73,7 @@ public class Pais implements Serializable {
 
     @Override
     public String toString() {
-        return "sv.gob.mined.tramites.model.Pais[ codigoPais=" + codigoPais + " ]";
+        return nombrePais;
     }
 
 }

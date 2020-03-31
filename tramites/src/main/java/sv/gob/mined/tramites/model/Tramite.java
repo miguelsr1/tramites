@@ -37,6 +37,13 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Tramite.findAll", query = "SELECT t FROM Tramite t")})
 public class Tramite implements Serializable {
 
+    @JoinColumn(name = "ID_PERSONA", referencedColumnName = "ID_PERSONA")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Persona idPersona;
+
+    @OneToMany(mappedBy = "idTramite", fetch = FetchType.LAZY)
+    private List<Solicitud04> solicitud04List;
+
     @OneToMany(mappedBy = "idTramite", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<Solicitud02> solicitud02List;
 
@@ -45,6 +52,8 @@ public class Tramite implements Serializable {
 
     @Column(name = "CODIGO_TRAMITE")
     private String codigoTramite;
+    @Column(name = "ESTADO_TRAMITE")
+    private String estadoTramite;
 
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -66,6 +75,14 @@ public class Tramite implements Serializable {
     private TipoTramite idTipoTramite;
 
     public Tramite() {
+    }
+
+    public String getEstadoTramite() {
+        return estadoTramite;
+    }
+
+    public void setEstadoTramite(String estadoTramite) {
+        this.estadoTramite = estadoTramite;
     }
 
     public Tramite(BigDecimal idTramite) {
@@ -165,6 +182,22 @@ public class Tramite implements Serializable {
 
     public void setSolicitud02List(List<Solicitud02> solicitud02List) {
         this.solicitud02List = solicitud02List;
+    }
+
+    public List<Solicitud04> getSolicitud04List() {
+        return solicitud04List;
+    }
+
+    public void setSolicitud04List(List<Solicitud04> solicitud04List) {
+        this.solicitud04List = solicitud04List;
+    }
+
+    public Persona getIdPersona() {
+        return idPersona;
+    }
+
+    public void setIdPersona(Persona idPersona) {
+        this.idPersona = idPersona;
     }
 
 }

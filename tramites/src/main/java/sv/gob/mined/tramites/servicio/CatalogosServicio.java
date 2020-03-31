@@ -7,23 +7,24 @@ package sv.gob.mined.tramites.servicio;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.mail.Authenticator;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
 import sv.gob.mined.tramites.facade.CatalogosFacade;
 import sv.gob.mined.tramites.facade.TramitesFacade;
 import sv.gob.mined.tramites.facade.acreditacion.AcreditacionFacade;
 import sv.gob.mined.tramites.facade.paquete.EntidadEducativaFacade;
 import sv.gob.mined.tramites.model.Ciudad;
-import sv.gob.mined.tramites.model.Estudiante;
 import sv.gob.mined.tramites.model.Pais;
-import sv.gob.mined.tramites.model.Persona;
 import sv.gob.mined.tramites.model.TipoTramite;
 import sv.gob.mined.tramites.model.Tramite;
-import sv.gob.mined.tramites.model.dto.acreditacion.EstudianteDto;
 import sv.gob.mined.tramites.model.dto.acreditacion.GradoDto;
 import sv.gob.mined.tramites.model.dto.acreditacion.OpcionDto;
 import sv.gob.mined.tramites.model.dto.paquete.EntidadEducativaDto;
@@ -35,6 +36,9 @@ import sv.gob.mined.tramites.model.dto.paquete.EntidadEducativaDto;
 @Named
 @ApplicationScoped
 public class CatalogosServicio implements Serializable {
+    
+    //@Resource(mappedName = "java:/MailTramites")
+    private Session mailSession;
 
     private List<EntidadEducativaDto> lstEntidadesEducativa;
     private List<TipoTramite> lstTipoTramite;
@@ -57,21 +61,29 @@ public class CatalogosServicio implements Serializable {
     public Tramite getTramiteByPk(BigDecimal idTramite){
         return tramitesFacade.getTramite(idTramite);
     }
+    
+    public Session getMailSession() {
+        Properties configEmail = new Properties();
 
-    public CatalogosFacade getCatalogosFacade() {
-        return catalogosFacade;
-    }
+        configEmail.put("mail.smtp.auth", "true");
+        configEmail.put("mail.smtp.starttls.enable", "true");
 
-    public void setCatalogosFacade(CatalogosFacade catalogosFacade) {
-        this.catalogosFacade = catalogosFacade;
-    }
+        configEmail.put("mail.smtp.host", "smtp.office365.com");
+        configEmail.put("mail.smtp.port", "587");
 
-    public EntidadEducativaFacade getEntidadEducativaFacade() {
-        return entidadEducativaFacade;
-    }
+        configEmail.put("mail.user", "miguel.sanchez@admin.mined.edu.sv");
+        configEmail.put("mail.user.pass", "miguelsr15.");
+        configEmail.put("mail.from", "miguel.sanchez@admin.mined.edu.sv");
 
-    public void setEntidadEducativaFacade(EntidadEducativaFacade entidadEducativaFacade) {
-        this.entidadEducativaFacade = entidadEducativaFacade;
+        mailSession = Session.getInstance(configEmail, new Authenticator() {
+
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication("miguel.sanchez@admin.mined.edu.sv", "miguelsr15.");
+            }
+        });
+
+        return mailSession;
     }
 
     public List<TipoTramite> getLstTipoTramite() {
@@ -94,39 +106,6 @@ public class CatalogosServicio implements Serializable {
 
     public List<OpcionDto> getLstOpcion(String codigoEntidad, Integer anho, String grado) {
         return acreditacionFacade.getOpcion(codigoEntidad, anho, grado);
-    }
-
-    public Estudiante findEstudiante(String nie, String dui) {
-
-        Estudiante estudiante;
-        Persona persona = new Persona();
-
-        estudiante = tramitesFacade.findEstudianteByNie(nie);
-        if (estudiante != null) {
-            return estudiante;
-        } else {
-            EstudianteDto estudianteDto = acreditacionFacade.getEstudianteByNieOrDui(nie, dui);
-            if (estudianteDto != null) {
-                estudiante.setNie(Long.parseLong(nie));
-
-                persona.setApellidos(estudianteDto.getApellidos());
-                persona.setCorreoElectronico(estudianteDto.getCorreoElectronico());
-                persona.setDui(estudianteDto.getDui());
-                persona.setGenero(estudianteDto.getGenero());
-                persona.setNombres(estudianteDto.getNombres());
-                persona.setTelefono(estudianteDto.getTelefono());
-                persona.getEstudianteList().add(estudiante);
-                persona.setFechaInsercion(new Date());
-                persona.setMigracion("S");
-                estudiante.setIdPersona(persona);
-
-                tramitesFacade.guardarPersona(persona);
-
-                return estudiante;
-            } else {
-                return null;
-            }
-        }
     }
 
     public List<Pais> getLstPais() {

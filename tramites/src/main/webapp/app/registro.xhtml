@@ -62,6 +62,11 @@
                             <p:outputLabel value="Teléfono "/>
                             <p:inputMask mask="9999-9999" value="#{registroView.persona.telefono}"/>
                         </p:panelGrid>
+                        <br/><br/>
+                        <p:outputPanel style="text-align: center; margin: 0 auto; width: 70%">
+                            <p:captcha id="divCaptcha" language="es" />
+                        </p:outputPanel>
+
                         <br/>
                         <p:commandButton value="Siguiente" style="width: 200px; margin: 0 auto;" action="#{registroView.siguiente}"
                                          rendered="#{(registroView.tipoPersona eq 'E') or (registroView.tipoPersona eq 'O')}"
@@ -77,7 +82,7 @@
                             <p:selectOneMenu value="#{registroView.idTipoTramite}"  >
                                 <f:selectItem itemLabel="Seleccione un valor" noSelectionOption="true"/>
                                 <f:selectItems value="#{registroView.lstTipoTramite}" var="tipo" itemValue="#{tipo.idTipoTramite}" itemLabel="#{tipo.descripcionTraminte}"/>
-                                <p:ajax onsuccess="onClick('btnRedireccionar')"/>
+                                <p:ajax onsuccess="onClick('btnGuardar')"/>
                             </p:selectOneMenu>
                         </p:panelGrid>
                     </p:outputPanel>
@@ -85,6 +90,8 @@
                 </p:outputPanel>
 
                 <p:panel visible="false">
+                    <p:commandButton id="btnGuardar" value="ok" action="#{registroView.guardarTramite}" update="btnRedireccionar" oncomplete="onClick('btnRedireccionar')"/>
+
                     <p:commandButton id="btnRedireccionar" value="ok" action="#{registroView.redireccionar}" >
                         <f:param name="idTramite" value="#{registroView.tramite.idTramite}"/>
                     </p:commandButton>

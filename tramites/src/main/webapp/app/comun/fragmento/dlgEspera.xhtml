@@ -1,0 +1,20 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <p:remoteCommand name="updateDlgMensaje" update="pngDlg" action="#{solicitud01View.actualizarDlgEspera()}" />
+
+    <p:dialog modal="true" id="dlgEsperar" widgetVar="dlgEsperar" closable="false" draggable="false" 
+              minimizable="false" resizable="false" height="150" width="500">
+        <h:panelGrid id="pngDlg" columnClasses="col2, col10" columns="2" style="width: 100%; height: 100%;">
+            <i class="#{solicitud01View.iconDlgEspera}"></i>
+            <p:outputPanel>
+                <p:outputLabel value="#{solicitud01View.msjDlgEspera}" style="font-size: 16px;"/>
+                <br/><br/>
+                <p:commandButton value="Aceptar" action="#{solicitud01View.retornar}" rendered="#{solicitud01View.showBotonAceptar}" style="width: 120px;" />
+            </p:outputPanel>
+        </h:panelGrid>
+    </p:dialog>
+</ui:composition>

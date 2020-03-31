@@ -16,6 +16,9 @@ import org.apache.commons.codec.digest.DigestUtils;
 import sv.gob.mined.tramites.model.Estudiante;
 import sv.gob.mined.tramites.model.Persona;
 import sv.gob.mined.tramites.model.Tramite;
+import sv.gob.mined.tramites.model.Solicitud01;
+import sv.gob.mined.tramites.model.Solicitud02;
+import sv.gob.mined.tramites.model.Solicitud04;
 
 /**
  *
@@ -83,5 +86,18 @@ public class TramitesFacade {
         } else {
             return (Estudiante) q.getResultList().get(0);
         }
+    }
+    
+    
+    public void guadarSolicitud01(Solicitud01 solicitud01){
+        em.merge(solicitud01);
+    }
+    
+    public void guadarSolicitud02(Solicitud02 solicitud02){
+        em.merge(solicitud02);
+    }
+    
+    public void guadarSolicitud04(Solicitud04 solicitud04){
+        em.merge(solicitud04);
     }
 }

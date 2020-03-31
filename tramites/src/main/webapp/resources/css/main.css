@@ -34,3 +34,7 @@
     height: 60px;
     z-index:1000; text-align: center; background: white;
 }
+
+#divCaptcha > div {
+    width: 100% !important;
+}

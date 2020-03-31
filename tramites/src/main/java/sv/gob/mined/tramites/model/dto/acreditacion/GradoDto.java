@@ -11,14 +11,14 @@ import javax.persistence.Entity;
 import javax.persistence.EntityResult;
 import javax.persistence.Id;
 import javax.persistence.SqlResultSetMapping;
-import javax.xml.bind.annotation.XmlRootElement;
+
 
 /**
  *
  * @author DesarrolloPc
  */
 @Entity
-@XmlRootElement
+
 @SqlResultSetMapping(name = "defaultGrado",
         entities = @EntityResult(entityClass = GradoDto.class))
 public class GradoDto implements Serializable {

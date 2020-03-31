@@ -40,8 +40,8 @@
     
     <application>
         <resource-bundle>
-            <base-name>/Bundle</base-name>
-            <var>bundle</var>
+            <base-name>/formato_correo</base-name>
+            <var>formato_correo</var>
         </resource-bundle>
     </application>
 </faces-config>

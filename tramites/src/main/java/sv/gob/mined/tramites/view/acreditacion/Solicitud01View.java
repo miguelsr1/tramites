@@ -21,6 +21,8 @@ import sv.gob.mined.tramites.model.dto.acreditacion.GradoDto;
 import sv.gob.mined.tramites.model.dto.acreditacion.OpcionDto;
 import sv.gob.mined.tramites.model.dto.paquete.EntidadEducativaDto;
 import sv.gob.mined.tramites.servicio.CatalogosServicio;
+import sv.gob.mined.tramites.servicio.TramitesServicio;
+import sv.gob.mined.tramites.view.DlgEsperarView;
 
 /**
  *
@@ -28,15 +30,16 @@ import sv.gob.mined.tramites.servicio.CatalogosServicio;
  */
 @ManagedBean
 @ViewScoped
-public class Solicitud01View implements Serializable {
+public class Solicitud01View extends DlgEsperarView implements Serializable {
 
     private Integer anho;
+
     private String opcion;
-    private String[] tramites;
     private String modalidad;
     private String periodo;
     private String jornada;
     private String grado;
+    private String[] tramites;
 
     private EntidadEducativaDto entidadEducativaDto;
     private List<GradoDto> lstGrado;
@@ -47,6 +50,8 @@ public class Solicitud01View implements Serializable {
 
     @Inject
     private CatalogosServicio catalogosServicio;
+    @Inject
+    private TramitesServicio tramitesServicio;
 
     @PostConstruct
     public void init() {
@@ -59,6 +64,9 @@ public class Solicitud01View implements Serializable {
 
         if (params.containsKey("idTramite")) {
             tramite = catalogosServicio.getTramiteByPk(new BigDecimal(params.get("idTramite")));
+            solicitud01 = new Solicitud01();
+            solicitud01.setIdTramite(tramite);
+            tramite.getSolicitud01List().add(solicitud01);
         }
     }
 
@@ -186,9 +194,11 @@ public class Solicitud01View implements Serializable {
     }
 
     public void guardar() {
+        setOcultarPanel(false);
+
         solicitud01.setAnho(anho.shortValue());
-        for (String tramite : tramites) {
-            switch (tramite) {
+        for (String strTramite : tramites) {
+            switch (strTramite) {
                 case "0":
                     solicitud01.setCertificacionNota("1");
                     break;
@@ -208,5 +218,7 @@ public class Solicitud01View implements Serializable {
         solicitud01.setPeriodoGraduacion(periodo);
         solicitud01.setModalidadAtencion(modalidad);
 
+        tramitesServicio.guardarSolicitud01(solicitud01, catalogosServicio.getMailSession());
     }
+
 }

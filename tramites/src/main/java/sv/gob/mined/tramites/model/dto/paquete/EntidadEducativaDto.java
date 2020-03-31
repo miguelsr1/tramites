@@ -9,14 +9,14 @@ import javax.persistence.Entity;
 import javax.persistence.EntityResult;
 import javax.persistence.Id;
 import javax.persistence.SqlResultSetMapping;
-import javax.xml.bind.annotation.XmlRootElement;
+
 
 /**
  *
  * @author misanchez
  */
 @Entity
-@XmlRootElement
+
 @SqlResultSetMapping(name = "defaultEntidadEducativa",
         entities = @EntityResult(entityClass = EntidadEducativaDto.class))
 public class EntidadEducativaDto implements Serializable {

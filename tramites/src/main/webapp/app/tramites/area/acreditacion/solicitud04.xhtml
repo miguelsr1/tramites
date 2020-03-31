@@ -17,28 +17,15 @@
             <div id="pricing">
                 <div class="ui-g ui-fluid">
                     <p:outputPanel style="width: 100%" id="outTipoTramite">
-                        <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-3 col3_left, ui-g-12 ui-md-9 col9_left"
-                                     style="margin: 0 auto; width: 70%;"
-                                     styleClass="form-group ui-panelgrid-blank" layout="grid">
-                            <p:outputLabel value="Fecha de tramite" />
-                            <p:calendar showOn="button" navigator="true" pattern="dd/MM/yyyy" size="10" locale="es" yearRange="c-100:c+100"/>
-                            <p:outputLabel value="NIE" />
-                            <p:inputText/>
-                            <p:outputLabel value="Nombre" />
-                            <p:inputText/>
-                            <p:outputLabel value="Correo electrónico" />
-                            <p:inputText/>
-                            <p:outputLabel value="Teléfono"/>
-                            <p:inputMask mask="9999-9999" size="10"/>
-                        </p:panelGrid>
-                        <br/><br/>
                         <p:panelGrid columns="1" columnClasses="ui-g-12 col12_left" 
                                      style="margin: 0 auto; width: 70%;"
                                      styleClass="form-group ui-panelgrid-blank" layout="grid">
+                            <p:outputLabel value="Solicito se margine el título de bachiller y/o certificado, para lo cual presento la documentación requerida."/>
+                            <br/><br/>
                             <p:outputLabel value="Motivo por el cuál solicita el cambio de nombre"/>
-                            <p:inputTextarea  rows="5"/>
+                            <p:inputTextarea rows="5" value="#{solicitud04View.solicitud04.motivo}"/>
                         </p:panelGrid>
-                        <p:commandButton value="Guardar" style="width: 200px; margin: 0 auto;" />
+                        <p:commandButton value="Guardar" style="width: 200px; margin: 0 auto;" action="#{solicitud04View.guardar()}"/>
                     </p:outputPanel>
                 </div>
             </div>
