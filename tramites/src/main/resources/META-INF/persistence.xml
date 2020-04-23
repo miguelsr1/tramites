@@ -12,6 +12,7 @@
     <class>sv.gob.mined.tramites.model.Pais</class>
     <class>sv.gob.mined.tramites.model.Ciudad</class>
     <class>sv.gob.mined.tramites.model.Solicitud02</class>
+    <class>sv.gob.mined.tramites.model.Solicitud03</class>
     <class>sv.gob.mined.tramites.model.Solicitud04</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties/>

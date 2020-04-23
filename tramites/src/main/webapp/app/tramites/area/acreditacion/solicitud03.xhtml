@@ -13,65 +13,79 @@
     </ui:define>
 
     <ui:define name="contenido">
-        <h:form prependId="false">
-            <div id="pricing">
-                <div class="ui-g ui-fluid">
-                    <p:outputPanel style="width: 100%" id="outTipoTramite">
-                        <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-3 col3_left, ui-g-12 ui-md-9 col9_left"
-                                     style="margin: 0 auto; width: 70%;"
-                                     styleClass="form-group ui-panelgrid-blank" layout="grid">
-                            <p:outputLabel value="Documento"/>
-                            <p:selectOneMenu>
-                                <f:selectItem itemLabel="Seleccione una opción" noSelectionOption="true"/>
-                                <f:selectItem itemValue="0" itemLabel="TÍTULO"/>
-                                <f:selectItem itemValue="1" itemLabel="CERTIFICADO"/>
-                                <f:selectItem itemValue="2" itemLabel="CERTIFICACIÓN"/>
-                                <f:selectItem itemValue="3" itemLabel="FOSTOSTÁTICA"/>
-                                <f:selectItem itemValue="4" itemLabel="CONSTANCIA"/>
-                                <f:selectItem itemValue="5" itemLabel="REGISTRO DE TÍTULO"/>
-                                <f:selectItem itemValue="6" itemLabel="PAES"/>
-                            </p:selectOneMenu>
-                            <p:outputLabel value="Centro Educativo"/>
-                            <p:autoComplete value="#{solicitud01View.entidadEducativaDto}" completeMethod="#{solicitud01View.completeEntidadEducativa}">
-                                <p:ajax event="itemSelect"/>
-                            </p:autoComplete>
-                            <p:outputLabel value="Fecha de Documento"/>
-                            <p:calendar showOn="button" navigator="true" pattern="dd/MM/yyyy"/>
-                            <p:outputLabel value="Opción de bachillerato"/>
-                            <p:inputText />
-                            <p:outputLabel value="Cantidad de documentos"/>
-                            <p:inputNumber decimalPlaces="0" minValue="1" />
-                        </p:panelGrid>
-                        <br/><br/>
-                        <p:dataTable>
-                            <p:column headerText="Documento">
-                                
-                            </p:column>
-                            <p:column headerText="Centro Educativo">
-                                
-                            </p:column>
-                            <p:column headerText="Departamento">
-                                
-                            </p:column>
-                            <p:column headerText="Municipio">
-                                
-                            </p:column>
-                            <p:column headerText="Fecha Documento">
-                                
-                            </p:column>
-                            <p:column headerText="Opción de bachillerato">
-                                
-                            </p:column>
-                            <p:column headerText="Cantidad de Documentos">
-                                
-                            </p:column>
-                        </p:dataTable>
-                        
-                        <p:commandButton value="Guardar" style="width: 200px; margin: 0 auto;" />
-                    </p:outputPanel>
-                </div>
+        <div id="pricing">
+            <div class="ui-g ui-fluid">
+                <p:outputPanel style="width: 100%" id="outTipoTramite">
+                    <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-3 col3_left, ui-g-12 ui-md-9 col9_left"
+                                 style="margin: 0 auto; width: 70%;"
+                                 styleClass="form-group ui-panelgrid-blank" layout="grid">
+                        <p:outputLabel value="Documento"/>
+                        <p:selectOneMenu value="#{solicitud03View.idTipoDocumento}">
+                            <f:selectItem itemLabel="Seleccione una opción" noSelectionOption="true"/>
+                            <f:selectItem itemValue="1" itemLabel="TÍTULO"/>
+                            <f:selectItem itemValue="2" itemLabel="CERTIFICADO"/>
+                            <f:selectItem itemValue="3" itemLabel="CERTIFICACIÓN"/>
+                            <f:selectItem itemValue="4" itemLabel="FOSTOSTÁTICA"/>
+                            <f:selectItem itemValue="5" itemLabel="CONSTANCIA"/>
+                            <f:selectItem itemValue="6" itemLabel="REGISTRO DE TÍTULO"/>
+                            <f:selectItem itemValue="7" itemLabel="PAES"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Centro Educativo"/>
+                        <p:autoComplete value="#{solicitud03View.entidadEducativaDto}" completeMethod="#{solicitud03View.completeEntidadEducativa}">
+                            <p:ajax event="itemSelect"/>
+                        </p:autoComplete>
+                        <p:outputLabel value="Fecha de Documento"/>
+                        <p:calendar value="#{solicitud03View.solicitud03.fechaDocumento}" showOn="button" navigator="true" pattern="dd/MM/yyyy"/>
+                        <p:outputLabel value="Opción de bachillerato"/>
+                        <p:inputText value="#{solicitud03View.solicitud03.opcionBach}"/>
+                        <p:outputLabel value="Cantidad de documentos"/>
+                        <p:inputNumber value="#{solicitud03View.solicitud03.cantidadDoc}" decimalPlaces="0" minValue="1" />
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Agregar" action="#{solicitud03View.agregar}" update="outTipoTramite tblDatos"/>
+                        </f:facet>
+                    </p:panelGrid>
+                    <br/><br/>
+                    <p:dataTable id="tblDatos" value="#{solicitud03View.tramite.solicitud03List}" var="solicitud">
+                        <p:column headerText="Documento" width="100">
+                            <p:outputLabel value="#{solicitud.idTipoDocumento eq 1? 'TITULO':(solicitud.idTipoDocumento eq 2?'CERTIFICADO':(solicitud.idTipoDocumento eq 3?'CERTIFICACIÓN':(solicitud.idTipoDocumento eq 4?'FOTOSTÁTICA':(solicitud.idTipoDocumento eq 5?'CONSTANCIA':(solicitud.idTipoDocumento eq 6?'REGISTRO DE TÍTULO':'PAES')))))}"/>
+                        </p:column>
+                        <p:column headerText="Centro Educativo" style="text-align: left;">
+                            <p:outputLabel value="#{solicitud.codigoEntidadMunDepa}" escape="false"/>
+                        </p:column>
+                        <p:column headerText="Fecha Documento" width="70">
+                            <p:outputLabel value="#{solicitud.fechaDocumento}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Opción de bachillerato">
+                            <p:outputLabel value="#{solicitud.opcionBach}"/>
+                        </p:column>
+                        <p:column headerText="Cantidad de Documentos" width="100">
+                            <p:outputLabel value="#{solicitud.cantidadDoc}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <br/><br/>
+
+                    <p:commandButton value="Guardar" style="width: 200px; margin: 0 auto;" action="#{solicitud03View.guardar()}" onclick="PF('dlgEsperar').show();"
+                                     onsuccess="updateDlgMensaje();"/>
+                </p:outputPanel>
             </div>
-        </h:form>
+        </div>
+
+        <p:remoteCommand name="updateDlgMensaje" update="pngDlg" action="#{solicitud02View.actualizarDlgEspera()}" />
+
+        <p:dialog modal="true" id="dlgEsperar" widgetVar="dlgEsperar" closable="false" draggable="false" 
+                  minimizable="false" resizable="false" height="150" width="500">
+            <h:panelGrid id="pngDlg" columnClasses="col2, col10" columns="2" style="width: 100%; height: 100%;">
+                <i class="#{solicitud02View.iconDlgEspera}"></i>
+                <p:outputPanel>
+                    <p:outputLabel value="#{solicitud02View.msjDlgEspera}" style="font-size: 16px;"/>
+                    <br/><br/>
+                    <p:commandButton value="Aceptar" action="#{solicitud02View.retornar}" rendered="#{solicitud02View.showBotonAceptar}" style="width: 120px;" />
+                </p:outputPanel>
+            </h:panelGrid>
+        </p:dialog>
 
         <h:outputStylesheet name="main.css" library="css" />
     </ui:define>

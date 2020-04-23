@@ -18,6 +18,7 @@ import sv.gob.mined.tramites.model.Persona;
 import sv.gob.mined.tramites.model.Tramite;
 import sv.gob.mined.tramites.model.Solicitud01;
 import sv.gob.mined.tramites.model.Solicitud02;
+import sv.gob.mined.tramites.model.Solicitud03;
 import sv.gob.mined.tramites.model.Solicitud04;
 
 /**
@@ -95,6 +96,10 @@ public class TramitesFacade {
     
     public void guadarSolicitud02(Solicitud02 solicitud02){
         em.merge(solicitud02);
+    }
+    
+    public void guadarSolicitud03(Solicitud03 solicitud03){
+        em.merge(solicitud03);
     }
     
     public void guadarSolicitud04(Solicitud04 solicitud04){

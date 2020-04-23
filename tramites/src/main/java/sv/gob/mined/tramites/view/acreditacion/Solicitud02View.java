@@ -7,6 +7,7 @@ package sv.gob.mined.tramites.view.acreditacion;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -31,12 +32,13 @@ import sv.gob.mined.tramites.view.DlgEsperarView;
 @ViewScoped
 public class Solicitud02View extends DlgEsperarView implements Serializable {
 
-    private String codigoPais;
-    private Integer idCiudad;
+    //private String codigoPais;
+    //private Integer idCiudad;
 
     private String[] tramites;
 
     private Pais pais;
+    private Ciudad ciudad;
     private Tramite tramite;
     private Solicitud02 solicitud02;
 
@@ -50,7 +52,7 @@ public class Solicitud02View extends DlgEsperarView implements Serializable {
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 
         if (params.containsKey("idTramite")) {
-            tramite = catalogosServicio.getTramiteByPk(new BigDecimal(params.get("idTramite")));
+            tramite = catalogosServicio.getTramiteByPk(new BigDecimal(37)); //params.get("idTramite")));
             solicitud02 = new Solicitud02();
             solicitud02.setIdTramite(tramite);
             tramite.getSolicitud02List().add(solicitud02);
@@ -65,6 +67,14 @@ public class Solicitud02View extends DlgEsperarView implements Serializable {
         this.pais = pais;
     }
 
+    public Ciudad getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(Ciudad ciudad) {
+        this.ciudad = ciudad;
+    }
+
     public String[] getTramites() {
         return tramites;
     }
@@ -74,29 +84,16 @@ public class Solicitud02View extends DlgEsperarView implements Serializable {
     }
 
     public Solicitud02 getSolicitud02() {
+        if (solicitud02 == null) {
+            solicitud02 = new Solicitud02();
+        }
         return solicitud02;
     }
 
     public void setSolicitud02(Solicitud02 solicitud02) {
         this.solicitud02 = solicitud02;
     }
-
-    public Integer getIdCiudad() {
-        return idCiudad;
-    }
-
-    public void setIdCiudad(Integer idCiudad) {
-        this.idCiudad = idCiudad;
-    }
-
-    public String getCodigoPais() {
-        return codigoPais;
-    }
-
-    public void setCodigoPais(String codigoPais) {
-        this.codigoPais = codigoPais;
-    }
-
+    
     public List<Pais> completePais(String valor) {
         List<Pais> lstPais = catalogosServicio.getLstPais();
 
@@ -106,7 +103,11 @@ public class Solicitud02View extends DlgEsperarView implements Serializable {
     }
 
     public List<Ciudad> completeCity(String valor) {
-        return catalogosServicio.getLstCiudad(valor, pais.getCodigoPais());
+        if (pais != null) {
+            return catalogosServicio.getLstCiudad(valor, pais.getCodigoPais());
+        } else {
+            return new ArrayList();
+        }
     }
 
     public List<Ciudad> completeCiudad(String valor) {
@@ -118,7 +119,7 @@ public class Solicitud02View extends DlgEsperarView implements Serializable {
     }
 
     public void guardar() {
-        solicitud02.setIdCiudad(idCiudad);
+        solicitud02.setIdCiudad(ciudad.getIdCiudad());
 
         for (String strTramite : tramites) {
             switch (strTramite) {
@@ -135,6 +136,18 @@ public class Solicitud02View extends DlgEsperarView implements Serializable {
         }
 
         tramitesServicio.guardarSolicitud02(solicitud02, catalogosServicio.getMailSession());
+        actualizarDlgEspera();
+
+        setShowPanelDatos(true);
     }
 
+    public Pais find(String value) {
+        List<Pais> lst = catalogosServicio.getLstPais();
+        return lst.stream().filter(e -> e.getNombrePais().equals(value)).collect(Collectors.toList()).get(0);
+    }
+
+    public Ciudad findCiudad(String value) {
+        List<Ciudad> lst = catalogosServicio.getLstCiudad(value, pais.getCodigoPais());
+        return lst.stream().filter(e -> e.getNombreCiudad().equals(value)).collect(Collectors.toList()).get(0);
+    }
 }

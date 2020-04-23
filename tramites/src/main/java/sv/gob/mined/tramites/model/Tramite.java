@@ -37,6 +37,9 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Tramite.findAll", query = "SELECT t FROM Tramite t")})
 public class Tramite implements Serializable {
 
+    @OneToMany(mappedBy = "idTramite", fetch = FetchType.LAZY)
+    private List<Solicitud03> solicitud03List;
+
     @JoinColumn(name = "ID_PERSONA", referencedColumnName = "ID_PERSONA")
     @ManyToOne(fetch = FetchType.LAZY)
     private Persona idPersona;
@@ -143,10 +146,7 @@ public class Tramite implements Serializable {
             return false;
         }
         Tramite other = (Tramite) object;
-        if ((this.idTramite == null && other.idTramite != null) || (this.idTramite != null && !this.idTramite.equals(other.idTramite))) {
-            return false;
-        }
-        return true;
+        return !((this.idTramite == null && other.idTramite != null) || (this.idTramite != null && !this.idTramite.equals(other.idTramite)));
     }
 
     @Override
@@ -198,6 +198,17 @@ public class Tramite implements Serializable {
 
     public void setIdPersona(Persona idPersona) {
         this.idPersona = idPersona;
+    }
+
+    public List<Solicitud03> getSolicitud03List() {
+        if(solicitud03List == null){
+            solicitud03List = new ArrayList();
+        }
+        return solicitud03List;
+    }
+
+    public void setSolicitud03List(List<Solicitud03> solicitud03List) {
+        this.solicitud03List = solicitud03List;
     }
 
 }

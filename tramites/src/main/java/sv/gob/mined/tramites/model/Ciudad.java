@@ -93,7 +93,7 @@ public class Ciudad implements Serializable {
 
     @Override
     public String toString() {
-        return "sv.gob.mined.tramites.model.Ciudad[ idCiudad=" + idCiudad + " ]";
+        return nombreCiudad;
     }
 
 }

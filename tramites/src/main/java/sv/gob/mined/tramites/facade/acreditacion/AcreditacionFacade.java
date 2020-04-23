@@ -43,7 +43,11 @@ public class AcreditacionFacade {
 
     public EstudianteDto getEstudianteByNieOrDui(String nie, String dui) {
         Query q = em.createNamedQuery("Acreditacion.Estudiante", EstudianteDto.class);
-        q.setParameter(1, Long.parseLong(nie));
+        if (nie == null) {
+            q.setParameter(1, null);
+        } else {
+            q.setParameter(1, Long.parseLong(nie));
+        }
         q.setParameter(2, dui);
 
         if (q.getResultList().isEmpty()) {

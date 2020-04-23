@@ -30,7 +30,7 @@ public class EMailFacade {
     public void enviarMailDeError(String subject, String message, String usuario, Session mailSession) {
         try {
             MimeMessage m = new MimeMessage(mailSession);
-            Address from = new InternetAddress(mailSession.getProperty("mail.user"));
+            Address from = new InternetAddress("solicitudes.enlinea@mined.gob.sv");
             m.setSubject(subject, "UTF-8");
 
             m.setFrom(from);
@@ -39,14 +39,14 @@ public class EMailFacade {
             m.setText(message, "UTF-8", "html");
             Transport.send(m);
         } catch (MessagingException ex) {
-            Logger.getLogger(EMailFacade.class.getName()).log(Level.SEVERE, "Error en el envio de correo");
+            Logger.getLogger(EMailFacade.class.getName()).log(Level.SEVERE, "Error en el envio de correo", ex);
         }
     }
 
     public void enviarMailDeConfirmacion(String titulo, String message, String remitente, Session mailSession) {
         try {
             MimeMessage m = new MimeMessage(mailSession);
-            Address from = new InternetAddress(mailSession.getProperty("mail.user"));
+            Address from = new InternetAddress("solicitudes.enlinea@mined.gob.sv");
             m.setSubject(titulo, "UTF-8");
 
             m.setFrom(from);
@@ -60,7 +60,7 @@ public class EMailFacade {
             m.setText(message, "UTF-8", "html");
             Transport.send(m);
         } catch (MessagingException ex) {
-            Logger.getLogger(EMailFacade.class.getName()).log(Level.SEVERE, "Error en el envio de correo");
+            Logger.getLogger(EMailFacade.class.getName()).log(Level.SEVERE, "Error en el envio de correo", ex);
         }
     }
 }

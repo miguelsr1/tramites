@@ -20,6 +20,7 @@ import sv.gob.mined.tramites.model.Estudiante;
 import sv.gob.mined.tramites.model.Persona;
 import sv.gob.mined.tramites.model.Solicitud01;
 import sv.gob.mined.tramites.model.Solicitud02;
+import sv.gob.mined.tramites.model.Solicitud03;
 import sv.gob.mined.tramites.model.Solicitud04;
 import sv.gob.mined.tramites.model.Tramite;
 import sv.gob.mined.tramites.model.dto.acreditacion.EstudianteDto;
@@ -48,10 +49,12 @@ public class TramitesServicio {
 
     public Estudiante findEstudiante(String nie, String dui) {
 
-        Estudiante estudiante;
+        Estudiante estudiante = null;
         Persona persona = new Persona();
 
-        estudiante = tramitesFacade.findEstudianteByNie(nie);
+        if (nie != null) {
+            estudiante = tramitesFacade.findEstudianteByNie(nie);
+        }
         if (estudiante != null) {
             return estudiante;
         } else {
@@ -101,6 +104,12 @@ public class TramitesServicio {
         tramitesFacade.guadarSolicitud02(solicitud02);
 
         enviarCorreos(solicitud02.getIdTramite(), session);
+    }
+
+    public void guardarSolicitud03(Solicitud03 solicitud03, Session session) {
+        tramitesFacade.guadarSolicitud03(solicitud03);
+
+        enviarCorreos(solicitud03.getIdTramite(), session);
     }
 
     public void guardarSolicitud04(Solicitud04 solicitud04, Session session) {

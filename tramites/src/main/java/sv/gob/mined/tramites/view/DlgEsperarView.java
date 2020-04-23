@@ -11,11 +11,19 @@ package sv.gob.mined.tramites.view;
  */
 public class DlgEsperarView {
 
+    private Boolean showPanelDatos = false;
     private Boolean ocultarPanel = true;
-    private Boolean showBotonAceptar = false;
 
     private String iconDlgEspera = "fa fa-refresh fa-spin fa-4x fa-fw";
     private String msjDlgEspera = "Espere por favor";
+
+    public Boolean getShowPanelDatos() {
+        return showPanelDatos;
+    }
+
+    public void setShowPanelDatos(Boolean showPanelDatos) {
+        this.showPanelDatos = showPanelDatos;
+    }
 
     public Boolean getOcultarPanel() {
         return ocultarPanel;
@@ -23,14 +31,6 @@ public class DlgEsperarView {
 
     public void setOcultarPanel(Boolean ocultarPanel) {
         this.ocultarPanel = ocultarPanel;
-    }
-
-    public Boolean getShowBotonAceptar() {
-        return showBotonAceptar;
-    }
-
-    public void setShowBotonAceptar(Boolean showBotonAceptar) {
-        this.showBotonAceptar = showBotonAceptar;
     }
 
     public String getIconDlgEspera() {
@@ -50,12 +50,7 @@ public class DlgEsperarView {
     }
 
     public void actualizarDlgEspera() {
-        setShowBotonAceptar(true);
         setIconDlgEspera("fa fa-envelope fa-4x fa-fw");
         setMsjDlgEspera("En su correo recibirá el código generado de esta solicitud");
-    }
-
-    public String retornar() {
-        return "/app/registro?faces-redirect=true";
     }
 }

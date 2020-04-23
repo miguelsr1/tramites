@@ -170,7 +170,7 @@ public class Solicitud01View extends DlgEsperarView implements Serializable {
         List<EntidadEducativaDto> lstEntidadEducativaDtos = catalogosServicio.getLstEntidadEducativa();
 
         return lstEntidadEducativaDtos.stream()
-                .filter(e -> e.getCodigoEntidad().contains(valor) || e.getNombre().contains(valor))
+                .filter(e -> e.getCodigoEntidad().contains(valor) || e.getNombre().toUpperCase().contains(valor.toUpperCase()))
                 .collect(Collectors.toList());
     }
 
@@ -219,6 +219,9 @@ public class Solicitud01View extends DlgEsperarView implements Serializable {
         solicitud01.setModalidadAtencion(modalidad);
 
         tramitesServicio.guardarSolicitud01(solicitud01, catalogosServicio.getMailSession());
+        actualizarDlgEspera();
+        
+        setShowPanelDatos(true);
     }
 
 }

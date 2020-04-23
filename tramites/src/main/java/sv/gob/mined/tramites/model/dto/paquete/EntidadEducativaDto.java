@@ -10,7 +10,6 @@ import javax.persistence.EntityResult;
 import javax.persistence.Id;
 import javax.persistence.SqlResultSetMapping;
 
-
 /**
  *
  * @author misanchez
@@ -84,6 +83,10 @@ public class EntidadEducativaDto implements Serializable {
     @Override
     public String toString() {
         return codigoEntidad + " - " + nombre;
+    }
+
+    public String getCodigoEntMuniDepa() {
+        return codigoEntidad + " - " + nombre + "<br/>MUNICIPIO: " + nombreMunicipio + "<br/>DEPARTAMENTO: " + nombreDepartamento;
     }
 
 }

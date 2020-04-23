@@ -6,6 +6,7 @@
 package sv.gob.mined.tramites.view;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -133,6 +134,7 @@ public class RegistroView implements Serializable {
 
         showDatosGenerales = false;
         showTipoTramite = true;
+        //System.out.println("Siguiente");
     }
 
     public void findEstudiante() {
@@ -151,6 +153,7 @@ public class RegistroView implements Serializable {
             persona = tramitesServicio.findPersonaByDui(dui);
             if (persona == null) {
                 persona = new Persona();
+                persona.setFechaInsercion(new Date());
                 persona.setDui(dui);
             }
         }
@@ -173,10 +176,16 @@ public class RegistroView implements Serializable {
 
         switch (idTipoTramite) {
             case 1:
-                url = "tramites/area/acreditacion/solicitud01";
+                url = "app/tramites/area/acreditacion/solicitud01";
                 break;
             case 2:
-                url = "tramites/area/acreditacion/solicitud02";
+                url = "app/tramites/area/acreditacion/solicitud02";
+                break;
+            case 3:
+                url = "app/tramites/area/acreditacion/solicitud03";
+                break;
+            case 4:
+                url = "app/tramites/area/acreditacion/solicitud04";
                 break;
             default:
                 url = "";

@@ -4,7 +4,7 @@
 
     <groupId>sv.gob.mined</groupId>
     <artifactId>tramites</artifactId>
-    <version>1.0</version>
+    <version>1.0.1</version>
     <packaging>war</packaging>
 
     <name>tramites</name>
@@ -18,7 +18,7 @@
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>7.0</version>
+            <version>8.0</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.persistence</groupId>

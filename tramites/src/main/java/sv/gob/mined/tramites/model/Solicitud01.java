@@ -60,6 +60,11 @@ public class Solicitud01 implements Serializable {
     @JoinColumn(name = "ID_TRAMITE", referencedColumnName = "ID_TRAMITE")
     @ManyToOne(fetch = FetchType.LAZY)
     private Tramite idTramite;
+    
+    @Column(name = "GRADO_DES")
+    private String gradoDes;
+    @Column(name = "opcion")
+    private String opcion;
 
     public Solicitud01() {
     }
@@ -178,15 +183,28 @@ public class Solicitud01 implements Serializable {
             return false;
         }
         Solicitud01 other = (Solicitud01) object;
-        if ((this.idSolicitud01 == null && other.idSolicitud01 != null) || (this.idSolicitud01 != null && !this.idSolicitud01.equals(other.idSolicitud01))) {
-            return false;
-        }
-        return true;
+        return !((this.idSolicitud01 == null && other.idSolicitud01 != null) || (this.idSolicitud01 != null && !this.idSolicitud01.equals(other.idSolicitud01)));
     }
 
     @Override
     public String toString() {
         return "sv.gob.mined.tramites.model.Solicitud01[ idSolicitud01=" + idSolicitud01 + " ]";
+    }
+
+    public String getGradoDes() {
+        return gradoDes;
+    }
+
+    public void setGradoDes(String gradoDes) {
+        this.gradoDes = gradoDes;
+    }
+
+    public String getOpcion() {
+        return opcion;
+    }
+
+    public void setOpcion(String opcion) {
+        this.opcion = opcion;
     }
     
 }

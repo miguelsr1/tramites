@@ -8,14 +8,11 @@ package sv.gob.mined.tramites.servicio;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Properties;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.mail.Authenticator;
-import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import sv.gob.mined.tramites.facade.CatalogosFacade;
 import sv.gob.mined.tramites.facade.TramitesFacade;
@@ -37,7 +34,7 @@ import sv.gob.mined.tramites.model.dto.paquete.EntidadEducativaDto;
 @ApplicationScoped
 public class CatalogosServicio implements Serializable {
     
-    //@Resource(mappedName = "java:/MailTramites")
+    @Resource(mappedName = "java:/MailTramites")
     private Session mailSession;
 
     private List<EntidadEducativaDto> lstEntidadesEducativa;
@@ -63,25 +60,25 @@ public class CatalogosServicio implements Serializable {
     }
     
     public Session getMailSession() {
-        Properties configEmail = new Properties();
+        /*Properties configEmail = new Properties();
 
         configEmail.put("mail.smtp.auth", "true");
         configEmail.put("mail.smtp.starttls.enable", "true");
 
-        configEmail.put("mail.smtp.host", "smtp.office365.com");
-        configEmail.put("mail.smtp.port", "587");
+        configEmail.put("mail.smtp.host", "svr2k13mail01.mined.gob.sv");
+        configEmail.put("mail.smtp.port", "2525");
 
-        configEmail.put("mail.user", "miguel.sanchez@admin.mined.edu.sv");
-        configEmail.put("mail.user.pass", "miguelsr15.");
-        configEmail.put("mail.from", "miguel.sanchez@admin.mined.edu.sv");
+        configEmail.put("mail.user", "solicitudes.enlinea@mined.gob.sv");
+        configEmail.put("mail.user.pass", "solonline2020$.");
+        configEmail.put("mail.from", "solicitudes.enlinea@mined.gob.sv");
 
         mailSession = Session.getInstance(configEmail, new Authenticator() {
 
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("miguel.sanchez@admin.mined.edu.sv", "miguelsr15.");
+                return new PasswordAuthentication("solicitudes.enlinea@mined.gob.sv", "solonline2020$.");
             }
-        });
+        });*/
 
         return mailSession;
     }
