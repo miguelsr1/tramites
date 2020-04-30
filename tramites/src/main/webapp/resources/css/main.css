@@ -13,6 +13,7 @@
 .col5{width: 41.67%;}
 .col5_label{width: 41.67%;text-align: right;}
 .col4{width: 33.33%;}
+.col4_m{width: 33.33%;text-align: center;}
 .col4_label{width: 33.33%;text-align: right;}
 .col4_left{width: 33.33%;text-align: left;}
 .col3{width: 25%;}
@@ -49,4 +50,11 @@
 
 #divCaptcha > div {
     width: 100% !important;
+}
+
+
+.header-top {
+    width: 960px;
+    margin: 0 auto;
+    text-align: center;
 }

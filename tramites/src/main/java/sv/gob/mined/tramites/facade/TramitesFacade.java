@@ -34,30 +34,33 @@ public class TramitesFacade {
     public void guardarPersona(Persona persona) {
         if (persona.getIdPersona() == null) {
             em.persist(persona);
+        } else {
+            em.merge(persona);
         }
     }
-    
-    public Tramite getTramite(BigDecimal idTramite){
+
+    public Tramite getTramite(BigDecimal idTramite) {
         return em.find(Tramite.class, idTramite);
     }
-    
-    public void guardarTramite(Tramite tramite){
-        if(tramite.getIdTramite() == null){
+
+    public void guardarTramite(Tramite tramite) {
+        if (tramite.getIdTramite() == null) {
             tramite.setFechaCreacion(new Date());
 
             em.persist(tramite);
-            
+
             String codTramite = codigoGeneradoTramite(tramite.getFechaCreacion(), tramite.getIdTramite(), tramite.getIdTipoTramite().getCodigoTramite());
-            
+
             tramite.setCodigoTramite(codTramite);
-            
+
             em.merge(tramite);
         }
     }
 
     /**
      * Este codigo generado se realizará en combinación de la fecha en la que se
-     * registra el trámite, el id generado de la tabla tramite y el código de la solicitud a realizar
+     * registra el trámite, el id generado de la tabla tramite y el código de la
+     * solicitud a realizar
      *
      * @return
      */
@@ -88,21 +91,30 @@ public class TramitesFacade {
             return (Estudiante) q.getResultList().get(0);
         }
     }
-    
-    
-    public void guadarSolicitud01(Solicitud01 solicitud01){
+
+    public Tramite findByCodigo(String codigo) {
+        Query q = em.createQuery("SELECT t FROM Tramite t WHERE t.codigoTramite=:codigo", Tramite.class);
+        q.setParameter("codigo", codigo);
+        if (q.getResultList().isEmpty()) {
+            return null;
+        } else {
+            return (Tramite) q.getSingleResult();
+        }
+    }
+
+    public void guadarSolicitud01(Solicitud01 solicitud01) {
         em.merge(solicitud01);
     }
-    
-    public void guadarSolicitud02(Solicitud02 solicitud02){
+
+    public void guadarSolicitud02(Solicitud02 solicitud02) {
         em.merge(solicitud02);
     }
-    
-    public void guadarSolicitud03(Solicitud03 solicitud03){
+
+    public void guadarSolicitud03(Solicitud03 solicitud03) {
         em.merge(solicitud03);
     }
-    
-    public void guadarSolicitud04(Solicitud04 solicitud04){
+
+    public void guadarSolicitud04(Solicitud04 solicitud04) {
         em.merge(solicitud04);
     }
 }

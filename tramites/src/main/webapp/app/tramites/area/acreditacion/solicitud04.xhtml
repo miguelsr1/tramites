@@ -4,7 +4,8 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:p="http://primefaces.org/ui"
     xmlns:f="http://java.sun.com/jsf/core"
-    template="#{pageContext.servletContext.contextPath}/resources/template/plantilla.xhtml">
+    template="#{pageContext.servletContext.contextPath}/resources/template/plantilla.xhtml"
+    xmlns:jsf="http://xmlns.jcp.org/jsf">
 
     <ui:define name="titulo">
         <div class="header-content">
@@ -13,23 +14,34 @@
     </ui:define>
 
     <ui:define name="contenido">
-        <h:form prependId="false">
-            <div id="pricing">
-                <div class="ui-g ui-fluid">
-                    <p:outputPanel style="width: 100%" id="outTipoTramite">
-                        <p:panelGrid columns="1" columnClasses="ui-g-12 col12_left" 
-                                     style="margin: 0 auto; width: 70%;"
-                                     styleClass="form-group ui-panelgrid-blank" layout="grid">
-                            <p:outputLabel value="Solicito se margine el título de bachiller y/o certificado, para lo cual presento la documentación requerida."/>
+        <div id="pricing">
+            <div jsf:id="divDatos" class="ui-g ui-fluid">
+                <p:outputPanel style="width: 100%" id="outTipoTramite">
+                    <p:panelGrid columns="1" columnClasses="ui-g-12 col12_left" 
+                                 style="margin: 0 auto; width: 70%;"
+                                 styleClass="form-group ui-panelgrid-blank" layout="grid">
+                        <p:outputLabel value="Solicito se margine el título de bachiller y/o certificado, para lo cual presento la documentación requerida."/>
+                        <br/><br/>
+                        <p:outputLabel for="txaMotivo" value="Motivo por el cuál solicita el cambio de nombre"/>
+                        <p:inputTextarea id="txaMotivo" rows="5" value="#{solicitud04View.solicitud04.motivo}" required="true"/>
+                    </p:panelGrid>
+                    <p:commandButton value="Guardar" style="width: 200px; margin: 0 auto;" action="#{solicitud04View.guardar()}"
+                                     update="divDatos"/>
+                </p:outputPanel>
+
+                <p:outputPanel style="width: 100%" rendered="#{solicitud03View.showPanelDatos}">
+                    <h:panelGrid  columns="1" style="width: 100%; height: 100%;">
+                        <p:outputPanel>
+                            <i class="#{solicitud03View.iconDlgEspera}"></i>
                             <br/><br/>
-                            <p:outputLabel value="Motivo por el cuál solicita el cambio de nombre"/>
-                            <p:inputTextarea rows="5" value="#{solicitud04View.solicitud04.motivo}"/>
-                        </p:panelGrid>
-                        <p:commandButton value="Guardar" style="width: 200px; margin: 0 auto;" action="#{solicitud04View.guardar()}"/>
-                    </p:outputPanel>
-                </div>
+                            <p:outputLabel value="#{solicitud03View.msjDlgEspera}" style="font-size: 16px;"/>
+                            <br/><br/>
+                            <p:button value="Aceptar" outcome="/index" style="width: 120px;" />
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:outputPanel>
             </div>
-        </h:form>
+        </div>
 
         <h:outputStylesheet name="main.css" library="css" />
         <h:outputScript name="calendar-localization.js" library="js"/>

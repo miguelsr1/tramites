@@ -1,0 +1,63 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core"
+    template="#{pageContext.servletContext.contextPath}/resources/template/plantilla.xhtml"
+    xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+    <ui:define name="contenido">
+        <div id="pricing" class="header-top">
+            <div jsf:id="divDatos" class="ui-g ui-fluid">
+
+                <p:outputPanel id="pnlDatos" style="width: 100%">
+                    <h1 style="font-family: Bembo Std !important;">Estado actual de la solicitud</h1>
+
+                    <p:panelGrid columns="3" columnClasses="col3_label,col7_left,col2" style="margin: 0 auto; width: 70%;" styleClass="form-group ui-panelgrid-blank"
+                                 rendered="#{!consultaView.showEstado}">
+                        <p:outputLabel value="Código del trámite: " for="txtCodigo"/>
+                        <p:inputText id="txtCodigo" value="#{consultaView.codigo}"/>
+                        <p:commandButton value="Buscar" action="#{consultaView.buscar()}" update="pnlDatos"/>
+                    </p:panelGrid>
+
+                    <p:panelGrid columns="2" columnClasses="col4_left,col8_left" style="margin: 0 auto; width: 70%;" styleClass="form-group ui-panelgrid-blank"
+                                 rendered="#{consultaView.showEstado}">
+                        <p:outputLabel value="Fecha creación" />
+                        <p:outputLabel value="#{consultaView.tramite.fechaCreacion}" style="font-weight: bold">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                        </p:outputLabel>
+                        <p:outputLabel value="Tipo de trámite" />
+                        <p:outputLabel value="#{consultaView.tramite.idTipoTramite.descripcionTraminte}" style="font-weight: bold"/>
+                        <p:outputLabel value="Nombre usuario" />
+                        <p:outputLabel value="#{consultaView.tramite.idPersona.nombres} #{consultaView.tramite.idPersona.apellidos}" style="font-weight: bold"/>
+                        <p:outputLabel value="Corre electrónico" />
+                        <p:outputLabel value="#{consultaView.tramite.idPersona.correoElectronico}" style="font-weight: bold"/>
+                    </p:panelGrid>
+
+                    <br/><br/>
+                    <p:panelGrid columns="3" columnClasses="col4_m,col4_m,col4_m" style="margin: 0 auto; width: 70%;" styleClass="form-group ui-panelgrid-blank"
+                                 rendered="#{consultaView.showEstado}">
+
+                        <h:panelGrid columns="1" style="width: 100%">
+                            <i class="fa fa-check-circle" aria-hidden="true" style="font-size: 40px; color: #349ffb"></i>
+                            <p:outputLabel value="Registrada"/>
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="1" style="width: 100%">
+                            <i class="fa fa-check-circle" aria-hidden="true" style="font-size: 40px; color: #d9d9d9"></i>
+                            <p:outputLabel value="En Proceso"/>
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="1" style="width: 100%">
+                            <i class="fa fa-check-circle" aria-hidden="true" style="font-size: 40px; color: #d9d9d9"></i>
+                            <p:outputLabel value="Completada"/>
+                        </h:panelGrid>
+                    </p:panelGrid>
+                </p:outputPanel>
+            </div>
+        </div>
+
+        <h:outputStylesheet name="main.css" library="css" />
+    </ui:define>
+</ui:composition>

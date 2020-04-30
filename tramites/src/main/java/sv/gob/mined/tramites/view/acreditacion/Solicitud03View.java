@@ -122,8 +122,12 @@ public class Solicitud03View extends DlgEsperarView implements Serializable {
         solicitud03.setCodigoEntidad(entidadEducativaDto.getCodigoEntidad());
         solicitud03.setCodigoEntidadMunDepa(entidadEducativaDto.getCodigoEntMuniDepa());
         solicitud03.setIdTramite(tramite);
-        
+
         tramite.getSolicitud03List().add(solicitud03);
-        solicitud03 = new Solicitud03();
+
+        tramitesServicio.guardarSolicitud03(solicitud03, catalogosServicio.getMailSession());
+        actualizarDlgEspera();
+
+        setShowPanelDatos(true);
     }
 }

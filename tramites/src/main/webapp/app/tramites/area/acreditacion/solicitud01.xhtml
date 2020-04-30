@@ -33,11 +33,11 @@
                         <p:inputMask id="txtAnho" value="#{solicitud01View.anho}" mask="9999" required="true"/>
                         <p:outputLabel value="Grado" for="txtGrado"/>
                         <p:inputText id="txtGrado" value="#{solicitud01View.solicitud01.gradoDes}" required="true"/>
-                        <p:outputLabel value="Opción" for="txtOpcion"/>
-                        <p:inputText id="txtOpcion" value="#{solicitud01View.solicitud01.opcion}" required="true"/>
+                        <p:outputLabel value="Opción"/>
+                        <p:inputText id="txtOpcion" value="#{solicitud01View.solicitud01.opcion}"/>
                         <p:outputLabel value="Tipo de trámite" for="ckbTramite"/>
                         <p:selectManyCheckbox id="ckbTramite" layout="responsive" columns="1" value="#{solicitud01View.tramites}" required="true">
-                            <f:selectItem itemLabel="Certificación de notas" itemValue="0" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="Certificación de notas" itemValue="0"/>
                             <f:selectItem itemLabel="Registro de título" itemValue="1"/>
                             <f:selectItem itemLabel="Reposición de título" itemValue="2"/>
                         </p:selectManyCheckbox> 
