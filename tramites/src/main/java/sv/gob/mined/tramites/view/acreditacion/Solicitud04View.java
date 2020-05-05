@@ -17,6 +17,7 @@ import sv.gob.mined.tramites.model.Tramite;
 import sv.gob.mined.tramites.model.Solicitud04;
 import sv.gob.mined.tramites.servicio.CatalogosServicio;
 import sv.gob.mined.tramites.servicio.TramitesServicio;
+import sv.gob.mined.tramites.view.DlgEsperarView;
 
 /**
  *
@@ -24,7 +25,7 @@ import sv.gob.mined.tramites.servicio.TramitesServicio;
  */
 @ManagedBean
 @ViewScoped
-public class Solicitud04View implements Serializable {
+public class Solicitud04View extends DlgEsperarView implements Serializable {
 
     private Tramite tramite;
     private Solicitud04 solicitud04;
@@ -55,6 +56,12 @@ public class Solicitud04View implements Serializable {
     }
 
     public void guardar() {
+        setOcultarPanel(false);
+        
         tramitesServicio.guardarSolicitud04(solicitud04, catalogosServicio.getMailSession());
+        
+        actualizarDlgEspera();
+        
+        setShowPanelDatos(true);
     }
 }

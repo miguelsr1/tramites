@@ -16,7 +16,7 @@
     <ui:define name="contenido">
         <div id="pricing">
             <div jsf:id="divDatos" class="ui-g ui-fluid">
-                <p:outputPanel style="width: 100%" id="outTipoTramite">
+                <p:outputPanel style="width: 100%" id="outTipoTramite" rendered="#{not solicitud04View.showPanelDatos}">
                     <p:panelGrid columns="1" columnClasses="ui-g-12 col12_left" 
                                  style="margin: 0 auto; width: 70%;"
                                  styleClass="form-group ui-panelgrid-blank" layout="grid">
@@ -29,12 +29,12 @@
                                      update="divDatos"/>
                 </p:outputPanel>
 
-                <p:outputPanel style="width: 100%" rendered="#{solicitud03View.showPanelDatos}">
+                <p:outputPanel style="width: 100%" rendered="#{solicitud04View.showPanelDatos}">
                     <h:panelGrid  columns="1" style="width: 100%; height: 100%;">
                         <p:outputPanel>
-                            <i class="#{solicitud03View.iconDlgEspera}"></i>
+                            <i class="#{solicitud04View.iconDlgEspera}"></i>
                             <br/><br/>
-                            <p:outputLabel value="#{solicitud03View.msjDlgEspera}" style="font-size: 16px;"/>
+                            <p:outputLabel value="#{solicitud04View.msjDlgEspera}" style="font-size: 16px;"/>
                             <br/><br/>
                             <p:button value="Aceptar" outcome="/index" style="width: 120px;" />
                         </p:outputPanel>

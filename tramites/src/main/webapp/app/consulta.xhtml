@@ -34,8 +34,9 @@
                         <p:outputLabel value="Corre electrónico" />
                         <p:outputLabel value="#{consultaView.tramite.idPersona.correoElectronico}" style="font-weight: bold"/>
                     </p:panelGrid>
-
-                    <br/><br/>
+                    <br/>
+                    <p:separator rendered="#{consultaView.showEstado}"/>
+                    <br/>
                     <p:panelGrid columns="3" columnClasses="col4_m,col4_m,col4_m" style="margin: 0 auto; width: 70%;" styleClass="form-group ui-panelgrid-blank"
                                  rendered="#{consultaView.showEstado}">
 
