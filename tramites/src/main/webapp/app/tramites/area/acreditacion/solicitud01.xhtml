@@ -20,7 +20,8 @@
                     <p:panelGrid columns="2" columnClasses="col4_label,col8_left" style="margin: 0 auto; width: 70%;" styleClass="form-group ui-panelgrid-blank"
                                  rendered="#{solicitud01View.ocultarPanel}">
                         <p:outputLabel value="Centro Educativo" for="txtCodigoEntidad"/>
-                        <p:autoComplete id="txtCodigoEntidad" value="#{solicitud01View.entidadEducativaDto}" completeMethod="#{solicitud01View.completeEntidadEducativa}" required="true" forceSelection="true">
+                        <p:autoComplete id="txtCodigoEntidad" value="#{solicitud01View.entidadEducativaDto}" completeMethod="#{solicitud01View.completeEntidadEducativa}" 
+                                        required="true" forceSelection="true" minQueryLength="5">
                             <p:ajax event="itemSelect" update="txtDepartamento txtMunicipio txtModalidad"/>
                         </p:autoComplete>
                         <p:outputLabel value="Departamento"/>

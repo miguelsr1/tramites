@@ -7,6 +7,7 @@ package sv.gob.mined.tramites.view.acreditacion;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -171,6 +172,7 @@ public class Solicitud01View extends DlgEsperarView implements Serializable {
 
         return lstEntidadEducativaDtos.stream()
                 .filter(e -> e.getCodigoEntidad().contains(valor) || e.getNombre().toUpperCase().contains(valor.toUpperCase()))
+                .sorted(Comparator.comparing(EntidadEducativaDto::getNombre))
                 .collect(Collectors.toList());
     }
 

@@ -55,7 +55,7 @@
                             <p:inputText id="txtApellido" value="#{registroView.persona.apellidos}" required="true"/>
                             <p:outputLabel for="txtCorreo" value="Correo electrónico "/>
                             <p:inputText id="txtCorreo" value="#{registroView.persona.correoElectronico}" 
-                                         requiredMessage="Por favor ingrese un correo válido"
+                                         requiredMessage="Por favor ingrese un correo válido" required="true"
                                          validatorMessage="El formato del correo no es el correcto">
                                 <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                             </p:inputText>
@@ -85,6 +85,8 @@
                                 <p:ajax onsuccess="onClick('btnGuardar')"/>
                             </p:selectOneMenu>
                         </p:panelGrid>
+                        
+                        <h3 style="font-family: Bembo Std;">Luego de este paso, no podra regresar a este punto, y deberá de comenzar de nuevo.</h3>
                     </p:outputPanel>
 
                 </p:outputPanel>

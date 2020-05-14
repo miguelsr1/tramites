@@ -130,6 +130,9 @@ public class RegistroView implements Serializable {
     }
 
     public void siguiente() {
+        if(persona.getFechaInsercion()==null){
+            persona.setFechaInsercion(new Date());
+        }
         tramitesServicio.guardarPersona(persona);
 
         showDatosGenerales = false;
