@@ -13,6 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import org.apache.commons.codec.digest.DigestUtils;
+import sv.gob.mined.tramites.model.Ciudad;
 import sv.gob.mined.tramites.model.Estudiante;
 import sv.gob.mined.tramites.model.Persona;
 import sv.gob.mined.tramites.model.Tramite;
@@ -20,6 +21,7 @@ import sv.gob.mined.tramites.model.Solicitud01;
 import sv.gob.mined.tramites.model.Solicitud02;
 import sv.gob.mined.tramites.model.Solicitud03;
 import sv.gob.mined.tramites.model.Solicitud04;
+import sv.gob.mined.tramites.model.dto.Solicitud02Dto;
 
 /**
  *
@@ -100,6 +102,13 @@ public class TramitesFacade {
         } else {
             return (Tramite) q.getSingleResult();
         }
+    }
+
+    public Solicitud02Dto getSolicitud02ByPk(BigDecimal pk) {
+        Query q = em.createNamedQuery("Tramite.rptSolicitud02", Solicitud02Dto.class);
+        q.setParameter(1, pk);
+
+        return (Solicitud02Dto) q.getResultList().get(0);
     }
 
     public void guadarSolicitud01(Solicitud01 solicitud01) {

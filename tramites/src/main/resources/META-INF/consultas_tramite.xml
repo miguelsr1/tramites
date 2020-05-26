@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<entity-mappings 
+    xmlns="http://java.sun.com/xml/ns/persistence/orm" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm  http://java.sun.com/xml/ns/persistence/orm_2_0.xsd"
+    version="2.0">
+    <description>Native queries para Tramites</description>
+    
+    <named-native-query name="Tramite.rptSolicitud02" 
+                        result-class="sv.gob.mined.tramites.model.dto.Solicitud02Dto">
+        <query>
+            <![CDATA[
+                select
+                    s.id_solicitud02 idSolicitud02,
+                    p.nombre_pais       nombrePais,
+                    c.nombre_ciudad     nombreCiudad,
+                    s.grado_obtenido    gradoObtenido,
+                    s.titulo            titulo, 
+                    s.diploma           diploma,
+                    s.certificado       certificado,
+                    s.extendido_por     extendidoPor
+                from solicitud02 s
+                    inner join ciudad c on s.id_ciudad = c.id_ciudad
+                    inner join pais p on p.codigo_pais = c.codigo_pais
+                where id_tramite  = ?1
+            ]]>
+        </query>
+    </named-native-query>
+</entity-mappings>

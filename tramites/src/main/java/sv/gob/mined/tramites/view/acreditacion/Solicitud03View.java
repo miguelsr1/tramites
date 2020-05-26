@@ -22,6 +22,7 @@ import sv.gob.mined.tramites.model.dto.paquete.EntidadEducativaDto;
 import sv.gob.mined.tramites.servicio.CatalogosServicio;
 import sv.gob.mined.tramites.servicio.TramitesServicio;
 import sv.gob.mined.tramites.view.DlgEsperarView;
+import sv.gob.mined.tramites.view.util.JsfUtil;
 
 /**
  *
@@ -30,21 +31,21 @@ import sv.gob.mined.tramites.view.DlgEsperarView;
 @ManagedBean
 @ViewScoped
 public class Solicitud03View extends DlgEsperarView implements Serializable {
-
+    
     private String idTipoDocumento;
     private Tramite tramite;
     private Solicitud03 solicitud03;
     private EntidadEducativaDto entidadEducativaDto;
-
+    
     @Inject
     private CatalogosServicio catalogosServicio;
     @Inject
     private TramitesServicio tramitesServicio;
-
+    
     @PostConstruct
     public void init() {
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-
+        
         if (params.containsKey("idTramite")) {
             tramite = catalogosServicio.getTramiteByPk(new BigDecimal(params.get("idTramite")));
             //solicitud03 = new Solicitud03();
@@ -52,82 +53,96 @@ public class Solicitud03View extends DlgEsperarView implements Serializable {
             //tramite.getSolicitud03List().add(solicitud03);
         }
     }
-
+    
     public String getIdTipoDocumento() {
         return idTipoDocumento;
     }
-
+    
     public void setIdTipoDocumento(String idTipoDocumento) {
         this.idTipoDocumento = idTipoDocumento;
     }
-
+    
     public Tramite getTramite() {
         return tramite;
     }
-
+    
     public void setTramite(Tramite tramite) {
         this.tramite = tramite;
     }
-
+    
     public Solicitud03 getSolicitud03() {
         if (solicitud03 == null) {
             solicitud03 = new Solicitud03();
         }
         return solicitud03;
     }
-
+    
     public void setSolicitud03(Solicitud03 solicitud03) {
         this.solicitud03 = solicitud03;
     }
-
+    
     public CatalogosServicio getCatalogosServicio() {
         return catalogosServicio;
     }
-
+    
     public void setCatalogosServicio(CatalogosServicio catalogosServicio) {
         this.catalogosServicio = catalogosServicio;
     }
-
+    
     public EntidadEducativaDto getEntidadEducativaDto() {
         return entidadEducativaDto;
     }
-
+    
     public void setEntidadEducativaDto(EntidadEducativaDto entidadEducativaDto) {
         this.entidadEducativaDto = entidadEducativaDto;
     }
-
+    
     public List<EntidadEducativaDto> completeEntidadEducativa(String valor) {
         List<EntidadEducativaDto> lstEntidadEducativaDtos = catalogosServicio.getLstEntidadEducativa();
-
+        
         return lstEntidadEducativaDtos.stream()
                 .filter(e -> e.getCodigoEntidad().contains(valor) || e.getNombre().contains(valor))
                 .collect(Collectors.toList());
     }
-
+    
     public EntidadEducativaDto find(String value) {
-
+        
         List<EntidadEducativaDto> lst = catalogosServicio.getLstEntidadEducativa();
-
+        
         return lst.stream().filter(e -> e.getCodigoEntidad().equals(value.split(" - ")[0])).collect(Collectors.toList()).get(0);
     }
-
+    
     public void guardar() {
         setOcultarPanel(false);
-
+        
         tramitesServicio.guardarSolicitud03(solicitud03, catalogosServicio.getMailSession());
+        
+        tramitesServicio.guardarSolicitud03(solicitud03, catalogosServicio.getMailSession());
+        actualizarDlgEspera();
+        
+        setShowPanelDatos(true);
     }
-
+    
     public void agregar() {
+        Boolean existe = false;
         solicitud03.setIdTipoDocumento(new Short(idTipoDocumento));
         solicitud03.setCodigoEntidad(entidadEducativaDto.getCodigoEntidad());
         solicitud03.setCodigoEntidadMunDepa(entidadEducativaDto.getCodigoEntMuniDepa());
         solicitud03.setIdTramite(tramite);
-
-        tramite.getSolicitud03List().add(solicitud03);
-
-        tramitesServicio.guardarSolicitud03(solicitud03, catalogosServicio.getMailSession());
-        actualizarDlgEspera();
-
-        setShowPanelDatos(true);
+        
+        for (Solicitud03 sol : tramite.getSolicitud03List()) {
+            if (solicitud03.getCodigoEntidad().equals(sol.getCodigoEntidad())
+                    && solicitud03.getOpcionBach().equals(sol.getOpcionBach())
+                    && solicitud03.getIdTipoDocumento().equals(sol.getIdTipoDocumento())) {
+                existe = true;
+                break;
+            }
+        }
+        
+        if (existe) {
+            JsfUtil.mensajeAlerta("Ya existe un detalle para este Centro Educativo, Opcion de Bachillerato y Tipo de Documento");
+        } else {
+            tramite.getSolicitud03List().add(solicitud03);
+        }
     }
 }

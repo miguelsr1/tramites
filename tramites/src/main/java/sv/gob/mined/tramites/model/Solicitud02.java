@@ -36,7 +36,7 @@ public class Solicitud02 implements Serializable {
     @Column(name = "ID_SOLICITUD01")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_SOLICITUD02")
     @SequenceGenerator(name = "SEQ_SOLICITUD02", sequenceName = "SEQ_SOLICITUD02", allocationSize = 1, initialValue = 1)
-    private BigDecimal idSolicitud01;
+    private BigDecimal idSolicitud02;
     @Column(name = "ID_CIUDAD")
     private Integer idCiudad;
     @Column(name = "GRADO_OBTENIDO")
@@ -56,16 +56,16 @@ public class Solicitud02 implements Serializable {
     public Solicitud02() {
     }
 
-    public Solicitud02(BigDecimal idSolicitud01) {
-        this.idSolicitud01 = idSolicitud01;
+    public Solicitud02(BigDecimal idSolicitud02) {
+        this.idSolicitud02 = idSolicitud02;
     }
 
     public BigDecimal getIdSolicitud01() {
-        return idSolicitud01;
+        return idSolicitud02;
     }
 
     public void setIdSolicitud01(BigDecimal idSolicitud01) {
-        this.idSolicitud01 = idSolicitud01;
+        this.idSolicitud02 = idSolicitud01;
     }
 
     public Integer getIdCiudad() {
@@ -127,7 +127,7 @@ public class Solicitud02 implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idSolicitud01 != null ? idSolicitud01.hashCode() : 0);
+        hash += (idSolicitud02 != null ? idSolicitud02.hashCode() : 0);
         return hash;
     }
 
@@ -138,7 +138,7 @@ public class Solicitud02 implements Serializable {
             return false;
         }
         Solicitud02 other = (Solicitud02) object;
-        if ((this.idSolicitud01 == null && other.idSolicitud01 != null) || (this.idSolicitud01 != null && !this.idSolicitud01.equals(other.idSolicitud01))) {
+        if ((this.idSolicitud02 == null && other.idSolicitud02 != null) || (this.idSolicitud02 != null && !this.idSolicitud02.equals(other.idSolicitud02))) {
             return false;
         }
         return true;
@@ -146,7 +146,7 @@ public class Solicitud02 implements Serializable {
 
     @Override
     public String toString() {
-        return "sv.gob.mined.tramites.model.Solicitud02[ idSolicitud01=" + idSolicitud01 + " ]";
+        return "sv.gob.mined.tramites.model.Solicitud02[ idSolicitud01=" + idSolicitud02 + " ]";
     }
     
 }

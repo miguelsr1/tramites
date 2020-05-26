@@ -41,17 +41,17 @@
                                  rendered="#{consultaView.showEstado}">
 
                         <h:panelGrid columns="1" style="width: 100%">
-                            <i class="fa fa-check-circle" aria-hidden="true" style="font-size: 40px; color: #349ffb"></i>
+                            <i class="fa fa-check-circle" aria-hidden="true" style="font-size: 40px; color: #{consultaView.tramite.estadoTramite eq 'D'?'#349ffb':'#d9d9d9'}"></i>
                             <p:outputLabel value="Registrada"/>
                         </h:panelGrid>
 
                         <h:panelGrid columns="1" style="width: 100%">
-                            <i class="fa fa-check-circle" aria-hidden="true" style="font-size: 40px; color: #d9d9d9"></i>
+                            <i class="fa fa-check-circle" aria-hidden="true" style="font-size: 40px; color: #{consultaView.tramite.estadoTramite eq 'E'?'#349ffb':'#d9d9d9'}"></i>
                             <p:outputLabel value="En Proceso"/>
                         </h:panelGrid>
 
                         <h:panelGrid columns="1" style="width: 100%">
-                            <i class="fa fa-check-circle" aria-hidden="true" style="font-size: 40px; color: #d9d9d9"></i>
+                            <i class="fa fa-check-circle" aria-hidden="true" style="font-size: 40px; color: #{consultaView.tramite.estadoTramite eq 'P'?'#349ffb':'#d9d9d9'}"></i>
                             <p:outputLabel value="Completada"/>
                         </h:panelGrid>
                     </p:panelGrid>

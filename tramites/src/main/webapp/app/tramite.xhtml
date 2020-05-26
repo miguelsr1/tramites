@@ -1,0 +1,50 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core"
+    template="#{pageContext.servletContext.contextPath}/resources/template/plantilla.xhtml"
+    xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+    <ui:define name="contenido">
+        <div id="pricing" class="header-top">
+            <div jsf:id="divDatos" class="ui-g ui-fluid">
+
+                <p:panel id="pnlDatos" style="width: 100%" header="DATOS DEL SOLICITANTE">
+                    <p:panelGrid columns="2" columnClasses="col2_left,col10_left" style="width: 100%;" styleClass="form-group ui-panelgrid-blank">
+                        <p:outputLabel value="NIE "/>
+                        <p:outputLabel id="txtNie" value="#{reporteView.nie}" />
+                        <p:outputLabel value="DUI "/>
+                        <p:outputLabel id="txtDui" value="#{reporteView.tramite.idPersona.dui}"/>
+                        <p:outputLabel for="cboGenero" value="Genero "/>
+                        <p:outputLabel id="cboGenero" value="#{reporteView.tramite.idPersona.genero eq 'M' ? 'MASCULINO': 'FEMENINO'}"/>
+                        <p:outputLabel value="Nombres " for="txtNombre"/>
+                        <p:outputLabel id="txtNombre" value="#{reporteView.tramite.idPersona.nombres}" />
+                        <p:outputLabel for="txtApellido" value="Apellidos " />
+                        <p:outputLabel id="txtApellido" value="#{reporteView.tramite.idPersona.apellidos}" />
+                        <p:outputLabel for="txtCorreo" value="Correo electrónico "/>
+                        <p:outputLabel id="txtCorreo" value="#{reporteView.tramite.idPersona.correoElectronico}" />
+                        <p:outputLabel value="Teléfono "/>
+                        <p:outputLabel value="#{reporteView.tramite.idPersona.telefono}"/>
+                    </p:panelGrid>
+                </p:panel>
+                <p:spacer width="10" height="10"/>
+                <p:outputPanel rendered="#{reporteView.tramite.idTipoTramite.idTipoTramite eq 1}">
+                    <ui:include src="/app/tramites/area/acreditacion/reporte/rptSolicitud01.xhtml"/>
+                </p:outputPanel>
+                <p:outputPanel rendered="#{reporteView.tramite.idTipoTramite.idTipoTramite eq 2}">
+                    <ui:include src="/app/tramites/area/acreditacion/reporte/rptSolicitud02.xhtml"/>
+                </p:outputPanel>
+                <p:outputPanel rendered="#{reporteView.tramite.idTipoTramite.idTipoTramite eq 3}">
+                    <ui:include src="/app/tramites/area/acreditacion/reporte/rptSolicitud03.xhtml"/>
+                </p:outputPanel>
+                <p:outputPanel rendered="#{reporteView.tramite.idTipoTramite.idTipoTramite eq 4}">
+                    <ui:include src="/app/tramites/area/acreditacion/reporte/rptSolicitud04.xhtml"/>
+                </p:outputPanel>
+            </div>
+        </div>
+
+        <h:outputStylesheet name="main.css" library="css" />
+    </ui:define>
+</ui:composition>

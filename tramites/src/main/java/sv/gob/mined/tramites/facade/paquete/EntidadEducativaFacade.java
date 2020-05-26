@@ -29,4 +29,11 @@ public class EntidadEducativaFacade {
 
         return q.getResultList();
     }
+    
+    public EntidadEducativaDto getEntidadEducativaDtoByCodigo(String codigoEntidad) {
+        Query q = em.createNamedQuery("Paquete.EntidadEducativaByCodigo", EntidadEducativaDto.class);
+        q.setParameter(1, codigoEntidad);
+
+        return (EntidadEducativaDto) q.getResultList().get(0);
+    }
 }

@@ -24,4 +24,22 @@
             ]]>
         </query>
     </named-native-query>
+    <named-native-query name="Paquete.EntidadEducativaByCodigo" 
+                        result-class="sv.gob.mined.tramites.model.dto.paquete.EntidadEducativaDto">
+        <query>
+            <![CDATA[
+                select 
+                    vw.codigo_entidad       as codigoEntidad,
+                    vw.nombre               as nombre,
+                    vw.direccion            as direccion,
+                    vw.iniciales_modalidad  as inicialesModalidad,
+                    depa.nombre_departamento as nombreDepartamento,
+                    mun.nombre_municipio    as nombreMunicipio
+                from vw_catalogo_entidad_educativa vw
+                    inner join departamento depa    on vw.codigo_departamento = depa.codigo_departamento
+                    inner join municipio mun        on mun.codigo_departamento = depa.codigo_departamento and vw.codigo_municipio = mun.codigo_municipio
+                where vw.codigo_entidad = ?1
+            ]]>
+        </query>
+    </named-native-query>
 </entity-mappings>

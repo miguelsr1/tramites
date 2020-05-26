@@ -2,14 +2,15 @@
 .col12_left{width: 100%; text-align: left;}
 .col11{width: 91.67%;}
 .col10{width: 83.33%;}
+.col10_left{width: 83.33%;text-align: left;font-weight: bold}
 .col9{width: 75%;}
-.col9_left{width: 75%;text-align: left;}
+.col9_left{width: 75%;text-align: left;font-weight: bold}
 .col8{width: 66.67%;}
-.col8_left{width: 66.67%;text-align: left;}
+.col8_left{width: 66.67%;text-align: left;font-weight: bold}
 .col7{width: 58.33%;}
 .col6{width: 50%;}
 .col6_label{width: 50%;text-align: right;}
-.col6_left{width: 50%;text-align: left;}
+.col6_left{width: 50%;text-align: left;font-weight: bold}
 .col5{width: 41.67%;}
 .col5_label{width: 41.67%;text-align: right;}
 .col4{width: 33.33%;}
@@ -21,6 +22,7 @@
 .col3_left{width: 25%;text-align: left;}
 .col2{width: 16.67%;}
 .col2_label{width: 16.67%;text-align: right;}
+.col2_left{width: 16.67%;text-align: left;}
 .col1{width: 8.33%;}
 .col1_label{width: 8.33%;text-align: right;}
 

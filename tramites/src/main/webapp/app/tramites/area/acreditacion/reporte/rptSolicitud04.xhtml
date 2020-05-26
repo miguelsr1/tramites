@@ -1,0 +1,28 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html">
+
+    <div id="pricing">
+        <div class="ui-g ui-fluid">            
+            <p:panel id="pnlDatos" style="width: 100%" header="SOLICITUD DE MARGINACIÓN DE TÍTULO DE BACHILLER / CERTIFICADO">
+                <p:panelGrid columns="2" columnClasses="col3_left,col9_left" style="width: 100%;" styleClass="form-group ui-panelgrid-blank">
+                    <p:outputLabel value="Fecha de registro" />
+                    <p:outputLabel value="#{reporteView.tramite.fechaCreacion}">
+                        <f:convertDateTime pattern="dd/MM/yyyy - hh:mm a"/>
+                    </p:outputLabel>
+
+                </p:panelGrid>
+                <br/>
+                <h:panelGrid columns="1">
+                    <p:outputLabel value="Solicito se margine el título de bachiller y/o certificado, para lo cual presento la documentación requerida."/>
+                    <br/><br/>
+                    <p:outputLabel value="Motivo por el cuál solicita el cambio de nombre"/>
+                    <p:outputLabel value="#{reporteView.solicitud04.motivo}" style="font-weight: bold;"/>
+                </h:panelGrid>
+            </p:panel>
+        </div>
+    </div>
+</ui:composition>

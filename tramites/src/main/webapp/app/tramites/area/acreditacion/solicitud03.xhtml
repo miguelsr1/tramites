@@ -16,12 +16,12 @@
     <ui:define name="contenido">
         <div id="pricing">
             <div jsf:id="divDatos" class="ui-g ui-fluid">
-                <p:outputPanel style="width: 100%" id="outTipoTramite">
+                <p:outputPanel style="width: 100%" id="outTipoTramite" rendered="#{not solicitud03View.showPanelDatos}">
                     <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-3 col3_left, ui-g-12 ui-md-9 col9_left"
                                  style="margin: 0 auto; width: 70%;"
                                  styleClass="form-group ui-panelgrid-blank" layout="grid">
-                        <p:outputLabel value="Documento"/>
-                        <p:selectOneMenu value="#{solicitud03View.idTipoDocumento}">
+                        <p:outputLabel value="Documento" for="cboTipo" />
+                        <p:selectOneMenu id="cboTipo" value="#{solicitud03View.idTipoDocumento}">
                             <f:selectItem itemLabel="Seleccione una opción" noSelectionOption="true"/>
                             <f:selectItem itemValue="1" itemLabel="TÍTULO"/>
                             <f:selectItem itemValue="2" itemLabel="CERTIFICADO"/>
@@ -31,16 +31,17 @@
                             <f:selectItem itemValue="6" itemLabel="REGISTRO DE TÍTULO"/>
                             <f:selectItem itemValue="7" itemLabel="PAES"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="Centro Educativo"/>
-                        <p:autoComplete value="#{solicitud03View.entidadEducativaDto}" completeMethod="#{solicitud03View.completeEntidadEducativa}">
+                        <p:outputLabel value="Centro Educativo" for="auCodigoEntidad"/>
+                        <p:autoComplete id="auCodigoEntidad" value="#{solicitud03View.entidadEducativaDto}" completeMethod="#{solicitud03View.completeEntidadEducativa}"
+                                        required="true" forceSelection="true" minQueryLength="5">
                             <p:ajax event="itemSelect"/>
                         </p:autoComplete>
-                        <p:outputLabel value="Fecha de Documento"/>
-                        <p:calendar value="#{solicitud03View.solicitud03.fechaDocumento}" showOn="button" navigator="true" pattern="dd/MM/yyyy"/>
-                        <p:outputLabel value="Opción de bachillerato"/>
-                        <p:inputText value="#{solicitud03View.solicitud03.opcionBach}"/>
-                        <p:outputLabel value="Cantidad de documentos"/>
-                        <p:inputNumber value="#{solicitud03View.solicitud03.cantidadDoc}" decimalPlaces="0" minValue="1" />
+                        <p:outputLabel value="Fecha de Documento" for="cdlFecha"/>
+                        <p:calendar id="cdlFecha" value="#{solicitud03View.solicitud03.fechaDocumento}" showOn="button" navigator="true" pattern="dd/MM/yyyy"/>
+                        <p:outputLabel value="Opción de bachillerato" for="txtOpcion"/>
+                        <p:inputText id="txtOpcion" value="#{solicitud03View.solicitud03.opcionBach}" required="true"/>
+                        <p:outputLabel value="Cantidad de documentos" for="txtCantidad"/>
+                        <p:inputNumber id="txtCantidad" value="#{solicitud03View.solicitud03.cantidadDoc}" decimalPlaces="0" minValue="1" required="true"/>
 
                         <f:facet name="footer">
                             <p:commandButton value="Agregar" action="#{solicitud03View.agregar}" update="outTipoTramite tblDatos"/>

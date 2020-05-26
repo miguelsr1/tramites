@@ -193,6 +193,9 @@ public class Tramite implements Serializable {
     }
 
     public Persona getIdPersona() {
+        if(idPersona == null){
+            idPersona = new Persona();
+        }
         return idPersona;
     }
 

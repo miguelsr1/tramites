@@ -22,6 +22,7 @@ import sv.gob.mined.tramites.model.Ciudad;
 import sv.gob.mined.tramites.model.Pais;
 import sv.gob.mined.tramites.model.TipoTramite;
 import sv.gob.mined.tramites.model.Tramite;
+import sv.gob.mined.tramites.model.dto.Solicitud02Dto;
 import sv.gob.mined.tramites.model.dto.acreditacion.GradoDto;
 import sv.gob.mined.tramites.model.dto.acreditacion.OpcionDto;
 import sv.gob.mined.tramites.model.dto.paquete.EntidadEducativaDto;
@@ -33,7 +34,7 @@ import sv.gob.mined.tramites.model.dto.paquete.EntidadEducativaDto;
 @Named
 @ApplicationScoped
 public class CatalogosServicio implements Serializable {
-    
+
     @Resource(mappedName = "java:/MailTramites")
     private Session mailSession;
 
@@ -54,11 +55,11 @@ public class CatalogosServicio implements Serializable {
     @PostConstruct
     public void init() {
     }
-    
-    public Tramite getTramiteByPk(BigDecimal idTramite){
+
+    public Tramite getTramiteByPk(BigDecimal idTramite) {
         return tramitesFacade.getTramite(idTramite);
     }
-    
+
     public Session getMailSession() {
         /*Properties configEmail = new Properties();
 
@@ -97,6 +98,10 @@ public class CatalogosServicio implements Serializable {
         return lstEntidadesEducativa;
     }
 
+    public EntidadEducativaDto getEntidadEducativaByCodigo(String codigoEntidad) {
+        return entidadEducativaFacade.getEntidadEducativaDtoByCodigo(codigoEntidad);
+    }
+
     public List<GradoDto> getLstGradosByCodEntAndAnho(String codigoEntidad, Integer anho) {
         return acreditacionFacade.getGradosByCodEntAndAnho(codigoEntidad, anho);
     }
@@ -118,10 +123,13 @@ public class CatalogosServicio implements Serializable {
         }
         return lstCiudad;
     }
-    
+
     public List<Ciudad> getLstCiudad(String nombre, String codPais) {
         return catalogosFacade.getLstCiudad(nombre, codPais);
-        
+
     }
 
+    public Solicitud02Dto getSolicitud02DtoByPk(BigDecimal pk){
+        return tramitesFacade.getSolicitud02ByPk(pk);
+    }
 }

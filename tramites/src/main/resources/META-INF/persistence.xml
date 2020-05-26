@@ -3,6 +3,7 @@
   <persistence-unit name="tramitePU" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>java:/TramiteDS</jta-data-source>
+    <mapping-file>META-INF/consultas_tramite.xml</mapping-file>
     <class>sv.gob.mined.tramites.model.Estudiante</class>
     <class>sv.gob.mined.tramites.model.TipoTramite</class>
     <class>sv.gob.mined.tramites.model.Persona</class>
@@ -14,6 +15,7 @@
     <class>sv.gob.mined.tramites.model.Solicitud02</class>
     <class>sv.gob.mined.tramites.model.Solicitud03</class>
     <class>sv.gob.mined.tramites.model.Solicitud04</class>
+    <class>sv.gob.mined.tramites.model.dto.Solicitud02Dto</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>

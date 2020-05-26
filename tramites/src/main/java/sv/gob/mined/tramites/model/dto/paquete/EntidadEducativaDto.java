@@ -15,7 +15,6 @@ import javax.persistence.SqlResultSetMapping;
  * @author misanchez
  */
 @Entity
-
 @SqlResultSetMapping(name = "defaultEntidadEducativa",
         entities = @EntityResult(entityClass = EntidadEducativaDto.class))
 public class EntidadEducativaDto implements Serializable {

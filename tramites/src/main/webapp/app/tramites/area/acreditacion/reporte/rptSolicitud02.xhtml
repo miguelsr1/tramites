@@ -1,0 +1,35 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html">
+
+    <div id="pricing">
+        <div class="ui-g ui-fluid">            
+            <p:panel id="pnlDatos" style="width: 100%" header="SOLICITUD DE INCORPORACIÓN DE TÍTULO DE EDUCACIÓN MEDIA">
+                <p:panelGrid columns="2" columnClasses="col3_left,col9_left" style="width: 100%;" styleClass="form-group ui-panelgrid-blank">
+                    <p:outputLabel value="Fecha de registro" />
+                    <p:outputLabel value="#{reporteView.tramite.fechaCreacion}">
+                        <f:convertDateTime pattern="dd/MM/yyyy - hh:mm a"/>
+                    </p:outputLabel>
+                    <p:outputLabel value="País donde estudió" />
+                    <p:outputLabel value="#{reporteView.solicitud02Dto.nombrePais}"/>
+                    <p:outputLabel value="Ciudad" />
+                    <p:outputLabel value="#{reporteView.solicitud02Dto.nombreCiudad}"/>
+                    <p:outputLabel value="Grado académico obtenido"/>
+                    <p:outputLabel value="#{reporteView.solicitud02Dto.gradoObtenido}" />
+
+                    <p:outputLabel value="Documentos que presentará" />
+                    <h:panelGrid columns="1">
+                        <p:outputLabel value="  ->  Título" rendered="#{reporteView.solicitud02Dto.titulo eq '1'}"/>
+                        <p:outputLabel value="  ->  Diploma" rendered="#{reporteView.solicitud02Dto.diploma eq '1'}"/>
+                        <p:outputLabel value="  ->  Certificado" rendered="#{reporteView.solicitud02Dto.certificado eq '1'}"/>
+                    </h:panelGrid>
+                    <p:outputLabel value="Extendido por:" />
+                    <p:outputLabel value="#{reporteView.solicitud02Dto.extendidoPor}"/>
+                </p:panelGrid>
+            </p:panel>
+        </div>
+    </div>
+</ui:composition>
